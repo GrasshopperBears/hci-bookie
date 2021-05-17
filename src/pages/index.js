@@ -1,4 +1,6 @@
 import AddEssay from './AddEssay';
+import Signin from './Signin';
+import Signup from './Signup';
 import AddMyBookmark from './AddMyBookmark';
 import BookshelfDetail from './BookshelfDetail';
 import BookshelfMain from './BookshelfMain';
@@ -12,6 +14,8 @@ import NotFound from './NotFound';
 
 const Pages = {
   AddEssay,
+  Signin,
+  Signup,
   AddMyBookmark,
   BookshelfDetail,
   BookshelfMain,
