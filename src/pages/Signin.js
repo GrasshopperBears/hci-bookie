@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase from '../firebase-config';
 import AuthIcons from '../components/AuthIcons';
-import { Typography } from '@material-ui/core';
+import { Typography, Link } from '@material-ui/core';
 import styled from 'styled-components';
 
 const Signin = () => {
@@ -32,6 +32,10 @@ const Signin = () => {
       <Typography variant='h2'>Welcome back!</Typography>
       <Typography variant='h4'>Signin with</Typography>
       <AuthIcons googleHandler={googleSigninHandler} githubHandler={githubSigninHandler} />
+      <Typography>
+        Want to join bookclub?
+        <Link href='/signup'>Sign up!</Link>
+      </Typography>
     </Wrapper>
   );
 };
@@ -43,6 +47,9 @@ const Wrapper = styled.div`
 
   .MuiTypography-root {
     margin-bottom: 20px;
+  }
+  a {
+    margin-left: 0.4rem;
   }
 `;
 
