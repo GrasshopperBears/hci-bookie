@@ -2,7 +2,7 @@ import MainRouter from './router';
 
 const App = () => {
   return (
-    <div className='App'>
+    <div className='App' style={{ padding: '0 200px' }}>
       <MainRouter />
     </div>
   );
