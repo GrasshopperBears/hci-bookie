@@ -44,8 +44,7 @@ const CardStyled = styled(Card)`
   height: 600px;
 `;
 
-const CardContentStyled = styled(CardMedia)`
-  padding: 10px 15px;
+const CardContentStyled = styled(CardContent)`
   height: 45%;
   box-sizing: border-box;
   position: relative;
