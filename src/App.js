@@ -1,4 +1,5 @@
 import MainRouter from './router';
+import './App.css';
 
 const App = () => {
   return (
