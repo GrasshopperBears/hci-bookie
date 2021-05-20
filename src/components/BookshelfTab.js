@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,7 +15,7 @@ function TabPanel(props) {
     return (
       <div
         role="tabpanel"
-        hidden={value !== index}
+        display={value !== index && "none"}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
         {...other}
@@ -48,14 +49,13 @@ function TabPanel(props) {
     },
   }));
   
-  export default function BookshelfTabs({ title, author, publisher, release, genre, review1, review2 }) {
+  export default function BookshelfTabs({ title, author, publisher, release, genre, review1, review2, comment }) {
     var t = `Title: ${title}`;
     var a = `Author: ${author}`;
     var p = `Publisher: ${publisher}`;
     var r = `Release: ${release}`;
     var g = `Genre: ${genre}` ;
-    var re1 = review1;
-    var re2 = review2;
+
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
   
@@ -65,32 +65,39 @@ function TabPanel(props) {
   
     return (
       <div className={classes.root}>
-        <AppBar position="static">
-        <Tabs value={value} onChange={handleChange}>
-            <Tab label="Information" {...a11yProps(0)} />
-            <Tab label="Review" {...a11yProps(1)} />
-        </Tabs>
-        </AppBar>
-        
-        <TabPanel value={value} index={0}>
-            <b>{t}</b><br/>
-            <b>{a}</b><br/>
-            <b>{p}</b><br/>
-            <b>{r}</b><br/>
-            <b>{g}</b><br/>
-            <br/>
-            <Divider orientation='horizontal'/>
-            <h4><b>Owner's comment</b></h4>
-            <h4>> Fascinating.. A must-read for all people.</h4>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-            {re1}<br/>
-            <br/>
-            {re2}
-            <br/>
-            <br/>
-            <Divider orientation='horizontal'/>
-        </TabPanel>
+        <Tabstyle>
+          <AppBar position="static">
+          <Tabs value={value} onChange={handleChange}>
+              <Tab label="Information" {...a11yProps(0)} />
+              <Tab label="Review" {...a11yProps(1)} />
+          </Tabs>
+          </AppBar>
+          <TabPanel value={value} index={0}>
+              <b>{t}</b><br/>
+              <b>{a}</b><br/>
+              <b>{p}</b><br/>
+              <b>{r}</b><br/>
+              <b>{g}</b><br/>
+              <br/>
+              <Divider orientation='horizontal'/>
+              <h4><b>Owner's comment</b></h4>
+              <h4>{comment}</h4>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+              {review1}<br/>
+              <br/>
+              {review2}
+              <br/>
+              <br/>
+              <Divider orientation='horizontal'/>
+          </TabPanel>
+        </Tabstyle>
       </div>
     );
   }
+
+const Tabstyle = styled.div`
+  float: left;
+  margin: 100px;
+  width: 800px;
+`;
