@@ -73,23 +73,27 @@ function TabPanel(props) {
           </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
-              <b>{t}</b><br/>
-              <b>{a}</b><br/>
-              <b>{p}</b><br/>
-              <b>{r}</b><br/>
-              <b>{g}</b><br/>
-              <br/>
-              <Divider orientation='horizontal'/>
-              <h4><b>Owner's comment</b></h4>
-              <h4>{comment}</h4>
+            <Divider orientation='horizontal'/>
+            <br/>
+            <b>{t}</b><br/>
+            <b>{a}</b><br/>
+            <b>{p}</b><br/>
+            <b>{r}</b><br/>
+            <b>{g}</b><br/>
+            <br/>
+            <Divider orientation='horizontal'/>
+            <h4><b>Owner's comment</b></h4>
+            <h4>{comment}</h4>
           </TabPanel>
           <TabPanel value={value} index={1}>
-              {review1}<br/>
-              <br/>
-              {review2}
-              <br/>
-              <br/>
-              <Divider orientation='horizontal'/>
+            <Divider orientation='horizontal'/>
+            <br/>
+            {review1}<br/>
+            <br/>
+            {review2}
+            <br/>
+            <br/>
+            <Divider orientation='horizontal'/>
           </TabPanel>
         </Tabstyle>
       </div>

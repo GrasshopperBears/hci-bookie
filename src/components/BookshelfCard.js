@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, CardMedia } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
 
 const BookshelfCard = ({ imgUrl, size }) => {
     const history = useHistory();
-    const url = "detail/:id";
+    const url = "/bookshelf/detail/id";
 
     const clickHandler = () => {
       history.push(url);
@@ -18,10 +18,23 @@ const BookshelfCard = ({ imgUrl, size }) => {
         styleRules = {position: 'block', float: 'left', width: '150px', height: '250px', margin: '50px'};
     }
     return (
-        <Card onClick={clickHandler} style={styleRules}>
-            <CardMedia image={imgUrl} title='Book cover' style={{ width: '100%', height: '100%' }} />
-        </Card>
+        <Wrapper style={styleRules}>
+            <CardActionArea onClick={clickHandler}>
+                <CardMedia image={imgUrl} title='Book cover' style={{ width: '100%', height: '100%' }} />
+            </CardActionArea>
+        </Wrapper>
     );
 };
+
+const Wrapper = styled(Card)`
+  > button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+`;
 
 export default BookshelfCard;
