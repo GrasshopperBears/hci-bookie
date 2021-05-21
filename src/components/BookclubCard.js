@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { Card, CardMedia, CardContent, Typography, CardActionArea } from '@material-ui/core';
 import styled from 'styled-components';
+import genres from '../genres';
 
 const BookclubCard = ({ info, url }) => {
   const { bookInfo, title, date, content, genre, participants } = info;
@@ -17,17 +18,17 @@ const BookclubCard = ({ info, url }) => {
       <CardActionArea onClick={clickHandler} style={{ height: '100%', width: '100%' }}>
         <CardMedia image={bookInfo.thumbnail} title='Book cover' style={{ width: '100%', height: '55%' }} />
         <CardContentStyled>
-          <Typography variant='h4'>{title}</Typography>
-          <Typography variant='h6' style={{ marginBottom: '5px' }}>
+          <Title variant='h5'>{title}</Title>
+          <Typography variant='body1' style={{ marginBottom: '15px' }}>
             Date: {moment(date).format('MMMM Do, H:mm')}
           </Typography>
           <SessionDescription variant='body2' color='textSecondary'>
             {content}
           </SessionDescription>
           <Footer>
-            <Typography variant='body2' style={{ fontWeight: 'bold', marginBottom: '5px' }}>
-              #{genre}
-            </Typography>
+            {genre && (
+              <GenreTag color={genres.find((el) => el.genre === genre).color || ''}>#{genre}</GenreTag>
+            )}
             <Typography>
               Currently {participants.length} {participants.length <= 1 ? 'person' : 'people'} joined
             </Typography>
@@ -50,6 +51,15 @@ const CardContentStyled = styled(CardContent)`
   position: relative;
 `;
 
+const Title = styled(Typography)`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+`;
+
 const SessionDescription = styled(Typography)`
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,6 +74,15 @@ const Footer = styled.div`
   position: absolute;
   bottom: 0;
   padding: 0 0 18px;
+`;
+
+const GenreTag = styled.div`
+  background-color: ${(props) => props.color};
+  width: fit-content;
+  padding: 5px 8px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  font-weight: bold;
 `;
 
 export default BookclubCard;

@@ -11,10 +11,11 @@ const RecentlyAddedSession = () => {
 
   const initList = async () => {
     const querySnapshot = await db.collection('sessions').get();
+    const books = [];
     querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      setBookList([...bookList, { id: doc.id, ...data }]);
+      books.push({ id: doc.id, ...doc.data() });
     });
+    setBookList(books);
   };
 
   useEffect(() => {
@@ -28,8 +29,8 @@ const RecentlyAddedSession = () => {
       </Typography>
       <Grid container spacing={4}>
         {bookList.map((book) => (
-          <Grid item lg={3} md={4}>
-            <BookclubCard key={book.id} info={book} url='/' />
+          <Grid item lg={3} md={4} key={book.id} style={{ width: '100%' }}>
+            <BookclubCard info={book} url='/' />
           </Grid>
         ))}
       </Grid>

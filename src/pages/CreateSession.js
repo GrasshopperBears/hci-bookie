@@ -3,6 +3,7 @@ import moment from 'moment';
 import firebase from '../firebase-config';
 import CeterDiv from '../components/CenterDiv';
 import EnterBookInformation from '../components/EnterBookInformation';
+import genres from '../genres';
 import {
   Typography,
   FormControl,
@@ -12,21 +13,38 @@ import {
   RadioGroup,
   Radio,
   FormControlLabel,
+  Menu,
+  MenuItem,
+  Divider,
 } from '@material-ui/core';
+import { BiChevronDown } from 'react-icons/bi';
 import styled from 'styled-components';
 
 const CreateSession = () => {
   const [bookInfo, setBookInfo] = useState(undefined);
   const [isRepeating, setIsRepeating] = useState(false);
+  const [showGenres, setShowGenres] = useState(false);
+  const [genre, setGenre] = useState('');
   const title = useRef(undefined);
   const memberNumber = useRef(undefined);
   const briefDescription = useRef(undefined);
   const dateTime = useRef(undefined);
   const zoomUrl = useRef(undefined);
   const content = useRef(undefined);
+  const selectGenreBtn = useRef(undefined);
 
   const radioClickhandler = (e) => {
     setIsRepeating(e.target.value === 'true');
+  };
+  const openGenreDropdown = () => {
+    setShowGenres(true);
+  };
+  const hideGenreDropdown = () => {
+    setShowGenres(false);
+  };
+  const handleMenu = (select) => {
+    setGenre(select);
+    setShowGenres(false);
   };
 
   const submitHandler = async (e) => {
@@ -46,6 +64,7 @@ const CreateSession = () => {
         participants: [],
         bookInfo,
         isRepeating,
+        genre,
       });
   };
 
@@ -133,9 +152,59 @@ const CreateSession = () => {
             placeholder='Please introduce about this session'
           />
         </FormControl>
+        <GenreButton
+          id='genre-btn'
+          ref={selectGenreBtn}
+          onClick={openGenreDropdown}
+          variant='outlined'
+          fullWidth
+          startIcon={
+            <>
+              <BiChevronDown />
+              Genre
+              <Divider orientation='vertical' variant='fullWidth' flexItem style={{ margin: '0 10px' }} />
+            </>
+          }
+        >
+          {genre.length ? genre : 'Select genre'}
+        </GenreButton>
+        <Menu
+          id='genre-dropdown'
+          anchorEl={selectGenreBtn.current}
+          keepMounted
+          open={showGenres}
+          onClose={hideGenreDropdown}
+          style={{ width: '100%' }}
+          PaperProps={{
+            style: {
+              maxHeight: '300px',
+              width: selectGenreBtn.current?.offsetWidth || '',
+            },
+          }}
+          getContentAnchorEl={null}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          {genres.map((el) => (
+            <MenuItem
+              fullWidth
+              onClick={() => {
+                handleMenu(el.genre);
+              }}
+            >
+              {el.genre}
+            </MenuItem>
+          ))}
+        </Menu>
         <CeterDiv>
-          <Button type='submit' variant='contained' color='primary' size='large' style={{ float: 'center' }}>
-            Submit
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            size='large'
+            style={{ float: 'center', marginTop: '20px' }}
+          >
+            Create session
           </Button>
         </CeterDiv>
       </form>
@@ -152,6 +221,10 @@ const RowDiv = styled.div`
 const RadioGroupStyled = styled(RadioGroup)`
   display: flex;
   flex-direction: row !important;
+`;
+
+const GenreButton = styled(Button)`
+  justify-content: flex-start;
 `;
 
 export default CreateSession;
