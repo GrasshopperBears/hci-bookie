@@ -27,7 +27,10 @@ const EnterBookInformation = ({ bookInfo, setBookInfo }) => {
     if (!inputValue.length) return;
     const headers = { Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_API_KEY}` };
     try {
-      const result = await axios.get(`/v3/search/book?query=${inputValue}`, { headers });
+      const result = await axios.get(
+        `https://cors.bridged.cc/https://dapi.kakao.com/v3/search/book?query=${inputValue}`,
+        { headers },
+      );
       setBooks(result.data.documents);
       setVisible(true);
     } catch (e) {
