@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Pages from './pages';
+import Banner from './components/Banner';
 import firebase from './firebase-config';
 
 const MainRouter = () => {
   return (
     <BrowserRouter>
+      <Banner />
       <Switch>
         <Route exact path='/' component={Pages.MainPage} />
         <UnauthorizedRouter exact path='/signup' component={Pages.Signup} />
