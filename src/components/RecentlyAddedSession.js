@@ -31,7 +31,7 @@ const RecentlyAddedSession = () => {
       <Typography variant='h4' style={{ marginBottom: '25px' }}>
         Recently added debate
       </Typography>
-      <SessionCardList bookList={bookList} />
+      <SessionCardList bookList={bookList} url='/session/detail' />
     </>
   );
 };

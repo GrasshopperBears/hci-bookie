@@ -44,7 +44,7 @@ const MainPageMySessions = () => {
       <Typography variant='h4' style={{ marginBottom: '25px' }}>
         My debates
       </Typography>
-      <SessionCardList bookList={bookList} extra={<MainPageCreateSessionBox />} />
+      <SessionCardList bookList={bookList} extra={<MainPageCreateSessionBox />} url='/my-debate' />
     </>
   );
 };
