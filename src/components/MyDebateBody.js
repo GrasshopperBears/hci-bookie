@@ -24,7 +24,7 @@ const MyDebateBody = ({ info }) => {
         </BookinfoWrapper>
         <Divider variant='middle' style={{ margin: '20px 0' }} />
         <BookinfoWrapper style={{ margin: '10px 0 30px' }}>
-          {tags.map((el) => (
+          {tags.map((el) => ( 
             <Typography style={{ marginRight: '30px' }}>#{el}</Typography>
           ))}
         </BookinfoWrapper>
