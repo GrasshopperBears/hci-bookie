@@ -60,7 +60,10 @@ const CreateSession = () => {
         dateTime: dateTime.current.value,
         zoomUrl: zoomUrl.current.value,
         content: content.current.value,
-        host: firebase.auth().currentUser?.uid || '',
+        host: {
+          uid: firebase.auth().currentUser?.uid || '',
+          displayName: firebase.auth().currentUser?.displayName || '',
+        },
         participants: [],
         bookInfo,
         isRepeating,
