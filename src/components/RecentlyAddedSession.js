@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import firebase from '../firebase-config';
-import BookclubCard from './BookclubCard';
-import { Typography, Grid } from '@material-ui/core';
-import styled from 'styled-components';
+import SessionCardList from './SessionCardList';
+import { Typography } from '@material-ui/core';
 import moment from 'moment';
 
 const db = firebase.firestore();
@@ -32,23 +31,9 @@ const RecentlyAddedSession = () => {
       <Typography variant='h4' style={{ marginBottom: '25px' }}>
         Recently added debate
       </Typography>
-      <Grid container spacing={4}>
-        {bookList.map((book) => (
-          <Grid item lg={3} md={4} key={book.id} style={{ width: '100%' }}>
-            <BookclubCard info={book} url='/' />
-          </Grid>
-        ))}
-      </Grid>
-      <SessionsWrapper></SessionsWrapper>
+      <SessionCardList bookList={bookList} />
     </>
   );
 };
-
-const SessionsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-`;
 
 export default RecentlyAddedSession;
