@@ -4,19 +4,27 @@ import { Grid, Typography, Divider } from '@material-ui/core';
 import styled from 'styled-components';
 
 const MyDebateBody = ({ info }) => {
-  const { imgUrl, title, author, publisher, publshDate, tags, lastDebate, nextDebate, host, joinList } = info;
+  const {
+    bookInfo: { dateTime: publshDate, authors, thumbnail, publisher },
+    title,
+    genre,
+    lastDebate,
+    dateTime: nextDebate,
+    host: { displayName: hostName },
+    participants,
+  } = info;
 
   return (
     <Grid container spacing={10} style={{ height: '450px' }}>
       <GridStyled item xs={4} justify='center' alignItems='center'>
-        <BookCover src={imgUrl} alt='book cover' />
+        <BookCover src={thumbnail} alt='book cover' />
       </GridStyled>
       <GridStyled item xs={8} direction='column' justify='center'>
         <Typography variant='h4' style={{ marginBottom: '15px' }}>
           {title}
         </Typography>
         <BookinfoWrapper>
-          <Typography>Author: {author}</Typography>
+          <Typography>Author: {authors.join(', ')}</Typography>
           <Divider light='true' orientation='vertical' variant='middle' />
           <Typography>Publisher: {publisher}</Typography>
           <Divider light='true' orientation='vertical' variant='middle' />
@@ -24,9 +32,10 @@ const MyDebateBody = ({ info }) => {
         </BookinfoWrapper>
         <Divider variant='middle' style={{ margin: '20px 0' }} />
         <BookinfoWrapper style={{ margin: '10px 0 30px' }}>
-          {tags.map((el) => ( 
+          <Typography style={{ marginRight: '30px' }}>#{genre}</Typography>
+          {/* {tags.map((el) => (
             <Typography style={{ marginRight: '30px' }}>#{el}</Typography>
-          ))}
+          ))} */}
         </BookinfoWrapper>
         {lastDebate && (
           <BookinfoWrapper style={{ marginBottom: '7px' }}>
@@ -49,7 +58,7 @@ const MyDebateBody = ({ info }) => {
           </ParticipantsWrapper>
           <ParticipantsWrapper style={{ width: '80%' }}>
             <Typography variant='body2'>Participants</Typography>
-            {joinList.map((el) => (
+            {participants.map((el) => (
               <>{/* TODO: Participants Icons */}</>
             ))}
           </ParticipantsWrapper>
