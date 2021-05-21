@@ -49,7 +49,7 @@ const EnterBookInformation = ({ bookInfo, setBookInfo }) => {
       <TextField
         required
         fullWidth
-        disabled={bookInfo}
+        disabled={!!bookInfo}
         variant='outlined'
         id='bookInfo'
         label='Find Book'
@@ -62,7 +62,7 @@ const EnterBookInformation = ({ bookInfo, setBookInfo }) => {
           endAdornment: (
             <Button
               onClick={searchHandler}
-              disabled={bookInfo}
+              disabled={!!bookInfo}
               variant='contained'
               size='large'
               color='primary'
@@ -72,7 +72,7 @@ const EnterBookInformation = ({ bookInfo, setBookInfo }) => {
           ),
         }}
       />
-      <IconButton onClick={refreshHandler} style={{ marginLeft: '15px' }}>
+      <IconButton onClick={refreshHandler} style={{ marginLeft: '15px' }} disabled={!bookInfo}>
         <RiRefreshFill color={bookInfo ? '#ec9f05' : ''} />
       </IconButton>
       <Dialog open={visible} onClose={closeDialog} fullWidth maxWidth='sm'>
