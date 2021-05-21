@@ -5,7 +5,7 @@ import { Card, CardMedia, CardContent, Typography, CardActionArea } from '@mater
 import styled from 'styled-components';
 
 const BookclubCard = ({ info, url }) => {
-  const { imgUrl, title, date, description, genre, peopleNumber } = info;
+  const { bookInfo, title, date, content, genre, participants } = info;
   const history = useHistory();
 
   const clickHandler = () => {
@@ -15,21 +15,21 @@ const BookclubCard = ({ info, url }) => {
   return (
     <CardStyled>
       <CardActionArea onClick={clickHandler} style={{ height: '100%', width: '100%' }}>
-        <CardMedia image={imgUrl} title='Book cover' style={{ width: '100%', height: '55%' }} />
+        <CardMedia image={bookInfo.thumbnail} title='Book cover' style={{ width: '100%', height: '55%' }} />
         <CardContentStyled>
           <Typography variant='h4'>{title}</Typography>
           <Typography variant='h6' style={{ marginBottom: '5px' }}>
             Date: {moment(date).format('MMMM Do, H:mm')}
           </Typography>
           <SessionDescription variant='body2' color='textSecondary'>
-            {description}
+            {content}
           </SessionDescription>
           <Footer>
             <Typography variant='body2' style={{ fontWeight: 'bold', marginBottom: '5px' }}>
               #{genre}
             </Typography>
             <Typography>
-              Currently {peopleNumber} {peopleNumber <= 1 ? 'person' : 'people'} joined
+              Currently {participants.length} {participants.length <= 1 ? 'person' : 'people'} joined
             </Typography>
           </Footer>
         </CardContentStyled>
@@ -40,7 +40,7 @@ const BookclubCard = ({ info, url }) => {
 
 const CardStyled = styled(Card)`
   position: block;
-  width: 300px;
+  width: 100%;
   height: 600px;
 `;
 
