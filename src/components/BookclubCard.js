@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import genres from '../genres';
 
 const BookclubCard = ({ info, url }) => {
-  const { bookInfo, title, date, content, genre, participants } = info;
+  const { bookInfo, title, dateTime, content, genre, participants } = info;
   const history = useHistory();
 
   const clickHandler = () => {
@@ -20,7 +20,7 @@ const BookclubCard = ({ info, url }) => {
         <CardContentStyled>
           <Title variant='h5'>{title}</Title>
           <Typography variant='body1' style={{ marginBottom: '15px' }}>
-            Date: {moment(date).format('MMMM Do, H:mm')}
+            Date: {moment(dateTime).format('MMMM Do, H:mm')}
           </Typography>
           <SessionDescription variant='body2' color='textSecondary'>
             {content}

@@ -3,6 +3,7 @@ import firebase from '../firebase-config';
 import BookclubCard from './BookclubCard';
 import { Typography, Grid } from '@material-ui/core';
 import styled from 'styled-components';
+import moment from 'moment';
 
 const db = firebase.firestore();
 
@@ -10,7 +11,11 @@ const RecentlyAddedSession = () => {
   const [bookList, setBookList] = useState([]);
 
   const initList = async () => {
-    const querySnapshot = await db.collection('sessions').get();
+    const querySnapshot = await db
+      .collection('sessions')
+      .where('dateTime', '>=', moment().format('YYYY-MM-DDTHH:MM'))
+      // .orderBy('dateTime') // 어떤 조건으로?
+      .get();
     const books = [];
     querySnapshot.forEach((doc) => {
       books.push({ id: doc.id, ...doc.data() });
