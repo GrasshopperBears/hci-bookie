@@ -50,6 +50,7 @@ const CreateSession = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!bookInfo) return alert('Please enter book information');
+    const currentUser = firebase.auth().currentUser;
     await firebase
       .firestore()
       .collection('sessions')
@@ -61,13 +62,15 @@ const CreateSession = () => {
         zoomUrl: zoomUrl.current.value,
         content: content.current.value,
         host: {
-          uid: firebase.auth().currentUser?.uid || '',
-          displayName: firebase.auth().currentUser?.displayName || '',
+          uid: currentUser?.uid || '',
+          displayName: currentUser?.displayName || '',
+          profileImg: currentUser?.photoURL || '',
         },
         participants: [],
         bookInfo,
         isRepeating,
         genre,
+        likes: 0,
       });
   };
 
