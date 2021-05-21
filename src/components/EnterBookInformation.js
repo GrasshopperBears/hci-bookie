@@ -1,9 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, TextField, Dialog, DialogTitle, List, ListItem, Typography } from '@material-ui/core';
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+  Typography,
+  IconButton,
+} from '@material-ui/core';
 import styled from 'styled-components';
+import { RiRefreshFill } from 'react-icons/ri';
 
-const EnterBookInformation = ({ setBookInfo }) => {
+const EnterBookInformation = ({ bookInfo, setBookInfo }) => {
   const [inputValue, setInputValue] = useState('');
   const [visible, setVisible] = useState(false);
   const [books, setBooks] = useState([]);
@@ -14,6 +24,7 @@ const EnterBookInformation = ({ setBookInfo }) => {
   };
 
   const searchHandler = async () => {
+    if (!inputValue.length) return;
     const headers = { Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_API_KEY}` };
     try {
       const result = await axios.get(`/v3/search/book?query=${inputValue}`, { headers });
@@ -22,6 +33,10 @@ const EnterBookInformation = ({ setBookInfo }) => {
     } catch (e) {
       console.error(e);
     }
+  };
+  const refreshHandler = () => {
+    setInputValue('');
+    setBookInfo(undefined);
   };
   const selectBook = (book) => {
     setInputValue(book.title);
@@ -34,6 +49,7 @@ const EnterBookInformation = ({ setBookInfo }) => {
       <TextField
         required
         fullWidth
+        disabled={bookInfo}
         variant='outlined'
         id='bookInfo'
         label='Find Book'
@@ -44,12 +60,21 @@ const EnterBookInformation = ({ setBookInfo }) => {
         value={inputValue}
         InputProps={{
           endAdornment: (
-            <Button onClick={searchHandler} variant='contained' size='large' color='primary'>
+            <Button
+              onClick={searchHandler}
+              disabled={bookInfo}
+              variant='contained'
+              size='large'
+              color='primary'
+            >
               Find
             </Button>
           ),
         }}
       />
+      <IconButton onClick={refreshHandler} style={{ marginLeft: '15px' }}>
+        <RiRefreshFill color={bookInfo ? '#ec9f05' : ''} />
+      </IconButton>
       <Dialog open={visible} onClose={closeDialog} fullWidth maxWidth='sm'>
         <DialogTitle>Select book</DialogTitle>
         <List component='div' role='list'>
