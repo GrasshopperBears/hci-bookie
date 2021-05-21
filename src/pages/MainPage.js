@@ -1,12 +1,13 @@
 import React from 'react';
-import Example from '../components/example';
-import Banner from '../components/Banner';
+import RecentlyAddedSession from '../components/RecentlyAddedSession';
+import MainPageMySessions from '../components/MainPageMySessions';
 
 const MainPage = () => {
   return (
-    <>
-      <Banner/>
-    </>
+    <div>
+      <MainPageMySessions />
+      <RecentlyAddedSession />
+    </div>
   );
 };
 
