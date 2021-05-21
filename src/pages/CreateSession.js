@@ -17,12 +17,17 @@ import styled from 'styled-components';
 
 const CreateSession = () => {
   const [bookInfo, setBookInfo] = useState(undefined);
+  const [isRepeating, setIsRepeating] = useState(false);
   const title = useRef(undefined);
   const memberNumber = useRef(undefined);
   const briefDescription = useRef(undefined);
   const dateTime = useRef(undefined);
   const zoomUrl = useRef(undefined);
   const content = useRef(undefined);
+
+  const radioClickhandler = (e) => {
+    setIsRepeating(e.target.value === 'true');
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -37,9 +42,10 @@ const CreateSession = () => {
         dateTime: dateTime.current.value,
         zoomUrl: zoomUrl.current.value,
         content: content.current.value,
-        host: firebase.auth().currentUser.uid || '',
+        host: firebase.auth().currentUser?.uid || '',
         participants: [],
         bookInfo,
+        isRepeating,
       });
   };
 
@@ -72,7 +78,7 @@ const CreateSession = () => {
           </FormControl>
           <FormControl fullWidth margin='normal' required style={{ margin: '0 30px' }}>
             <FormLabel>This Session is</FormLabel>
-            <RadioGroupStyled name='isRepeating' defaultValue='false'>
+            <RadioGroupStyled onChange={radioClickhandler} name='isRepeating' defaultValue='false'>
               <FormControlLabel value='false' control={<Radio />} label='One-time' />
               <FormControlLabel value='true' control={<Radio />} label='Repeated' />
             </RadioGroupStyled>
@@ -145,7 +151,7 @@ const RowDiv = styled.div`
 
 const RadioGroupStyled = styled(RadioGroup)`
   display: flex;
-  flex-direction: row;
+  flex-direction: row !important;
 `;
 
 export default CreateSession;
