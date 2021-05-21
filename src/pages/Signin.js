@@ -9,6 +9,7 @@ const Signin = () => {
   const history = useHistory();
 
   const googleSigninHandler = async () => {
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
