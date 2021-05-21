@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../firebase-config';
-import { Typography } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
 import SessionCardList from './SessionCardList';
 import MainPageCreateSessionBox from './MainPageCreateSessionBox';
 import moment from 'moment';
@@ -40,12 +40,15 @@ const MainPageMySessions = () => {
   }, []);
 
   return (
-    <>
-      <Typography variant='h4' style={{ marginBottom: '25px' }}>
-        My debates
-      </Typography>
-      <SessionCardList bookList={bookList} extra={<MainPageCreateSessionBox />} url='/my-debate' />
-    </>
+    bookList.length > 0 && (
+      <>
+        <Typography variant='h4' style={{ margin: '25px 0' }}>
+          My debates
+        </Typography>
+        <SessionCardList bookList={bookList} extra={<MainPageCreateSessionBox />} url='/my-debate' />
+        <Divider style={{ margin: '50px 0' }} />
+      </>
+    )
   );
 };
 
