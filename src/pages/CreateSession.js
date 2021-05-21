@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import moment from 'moment';
+import firebase from '../firebase-config';
 import CeterDiv from '../components/CenterDiv';
 import EnterBookInformation from '../components/EnterBookInformation';
 import {
@@ -23,17 +24,23 @@ const CreateSession = () => {
   const zoomUrl = useRef(undefined);
   const content = useRef(undefined);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     if (!bookInfo) return alert('Please enter book information');
-    // title.current.value,
-    // memberNumber.current.value,
-    // briefDescription.current.value,
-    // dateTime.current.value,
-    // zoomUrl.current.value,
-    // content.current.value,
-
-    // bookInfo
+    await firebase
+      .firestore()
+      .collection('sessions')
+      .add({
+        title: title.current.value,
+        memberNumber: memberNumber.current.value,
+        briefDescription: briefDescription.current.value,
+        dateTime: dateTime.current.value,
+        zoomUrl: zoomUrl.current.value,
+        content: content.current.value,
+        host: firebase.auth().currentUser.uid || '',
+        participants: [],
+        bookInfo,
+      });
   };
 
   return (
