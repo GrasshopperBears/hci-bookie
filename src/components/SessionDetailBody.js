@@ -1,8 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import UserInformation from '../components/UserInformation';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import firebase from '../firebase-config';
 import { Grid, Typography, Button } from '@material-ui/core';
 import styled from 'styled-components';
 
@@ -15,7 +14,7 @@ const SessionDetailBody = ({ info }) => {
     content,
     // likes,
     participants,
-    host: { displayName: hostName },
+    host: { displayName: hostName, uid: hostUid },
   } = info;
   const history = useHistory();
   const hostInfo = { name: hostName };
@@ -96,14 +95,16 @@ const SessionDetailBody = ({ info }) => {
         >
           Share board
         </Button>
-        <Button
-          variant='contained'
-          onClick={button_apply}
-          color='primary'
-          style={{ margin: '0 20px 0 0', padding: '5px 40px 5px 40px' }}
-        >
-          Apply
-        </Button>
+        {hostUid !== firebase.auth().currentUser.uid && (
+          <Button
+            variant='contained'
+            onClick={button_apply}
+            color='primary'
+            style={{ margin: '0 20px 0 0', padding: '5px 40px 5px 40px' }}
+          >
+            Apply
+          </Button>
+        )}
       </GridStyled>
     </Grid>
   );
