@@ -56,7 +56,7 @@ const CreateSession = () => {
       .collection('sessions')
       .add({
         title: title.current.value,
-        memberNumber: memberNumber.current.value,
+        memberNumber: parseInt(memberNumber.current.value),
         briefDescription: briefDescription.current.value,
         dateTime: dateTime.current.value,
         zoomUrl: zoomUrl.current.value,
@@ -70,7 +70,7 @@ const CreateSession = () => {
         bookInfo,
         isRepeating,
         genre,
-        likes: 0,
+        likes: [],
       });
   };
 

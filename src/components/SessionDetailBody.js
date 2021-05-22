@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import UserInformation from '../components/UserInformation';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Grid, Typography, Button } from '@material-ui/core';
 import styled from 'styled-components';
 
@@ -13,7 +13,7 @@ const SessionDetailBody = ({ info }) => {
     bookInfo: { authors, publisher, thumbnail },
     genre,
     content,
-    likes,
+    // likes,
     participants,
     host: { displayName: hostName },
   } = info;
@@ -70,11 +70,11 @@ const SessionDetailBody = ({ info }) => {
             <p>{line}</p>
           ))}
         </Typography>
-        <BookinfoWrapper style={{ width: '100%', justifyContent: 'flex-end' }}>
+        {/* <BookinfoWrapper style={{ width: '100%', justifyContent: 'flex-end' }}>
           <Typography align='right' style={{ marginBottom: '5px', maxWidth: '100%' }}>
             <FontAwesomeIcon icon={faHeart} color='red' size='0.5x' /> {likes || 0} likes
           </Typography>
-        </BookinfoWrapper>
+        </BookinfoWrapper> */}
         <HorizonLine w='100%' m='0 0 10px 0' b='5px solid #EEEEEE' />
         <Typography
           variant='h6'

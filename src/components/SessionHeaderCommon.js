@@ -1,17 +1,43 @@
-import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Typography, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import firebase from '../firebase-config';
 import styled from 'styled-components';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
+const db = firebase.firestore();
+
 const SessionHeaderComon = ({ title, likes }) => {
+  const { id } = useParams();
+  const [likeNumber, setLikeNumber] = useState(likes?.length || 0);
+
+  const likeHandler = async () => {
+    const { currentUser } = firebase.auth();
+    if (!currentUser) return alert('You have to log in');
+    if (likes.includes(currentUser.uid)) {
+      await db
+        .collection('sessions')
+        .doc(id)
+        .update({ likes: firebase.firestore.FieldValue.arrayRemove(currentUser.uid) });
+      setLikeNumber(likeNumber - 1);
+    } else {
+      await db
+        .collection('sessions')
+        .doc(id)
+        .update({ likes: firebase.firestore.FieldValue.arrayUnion(currentUser.uid) });
+      setLikeNumber(likeNumber + 1);
+    }
+  };
+
   return (
     <Wrapper>
-      <GridStyled item xs={12} alignItems='flex-end' justify='flex-end'>
-        <Typography style={{ marginBottom: '15px' }}>
-          <FontAwesomeIcon icon={faHeart} color='red' size='0.5x' /> {likes || 0} likes
-        </Typography>
-      </GridStyled>
+      <LikeButton
+        onClick={likeHandler}
+        startIcon={<FontAwesomeIcon icon={faHeart} color='red' size='0.5x' />}
+      >
+        {likeNumber} likes
+      </LikeButton>
       <BookinfoWrapper>
         <Typography variant='h4' style={{ fontWeight: 600, marginBottom: '15px' }}>
           {title}
@@ -39,6 +65,7 @@ const HorizonLine = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   width: 100%;
   margin-top: 30px;
   > div {
@@ -46,10 +73,9 @@ const Wrapper = styled.div`
   }
 `;
 
-const GridStyled = styled(Grid)`
-  display: flex;
-  height: 100%;
-  width: 100%;
+const LikeButton = styled(Button)`
+  width: max-content;
+  padding: 7px 20px !important;
 `;
 
 const BookinfoWrapper = styled.div`
