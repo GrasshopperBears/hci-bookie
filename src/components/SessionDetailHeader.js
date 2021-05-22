@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { Grid, Typography } from '@material-ui/core';
 import styled from 'styled-components';
-import SessionHeaderComon from './SessionHeaderCommon';
+import SessionHeaderCommon from './SessionHeaderCommon';
 
 const SessionDetailHeader = ({ info }) => {
   const { title, likes, dateTime, participants } = info;
 
   return (
     <Grid container spacing={1}>
-      <SessionHeaderComon title={title} likes={likes} />
+      <SessionHeaderCommon title={title} likes={likes} />
       <GridStyled item xs={12} direction='column' alignItems='center' justify='flex-start'>
         <BookinfoWrapper>
           <Typography variant='h6' style={{ marginBottom: '15px' }}>
