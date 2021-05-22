@@ -37,11 +37,11 @@ const Banner = () => {
   return (
     <>
       <Wrapper>
-        <Button className={classes.button} onClick={bookie}>
+        <BookieTitle className={classes.button} onClick={bookie}>
           <Typography className={classes.banner} variant='h2'>
             Bookie
           </Typography>
-        </Button>
+        </BookieTitle>
         <UserMenu>
           <Button
             className={classes.button}
@@ -104,6 +104,12 @@ const Wrapper = styled.div`
   align-items: flex-end;
   padding-top: 30px;
   width: 100%;
+`;
+const BookieTitle = styled(Button)`
+  padding: 0 !important;
+  &:hover {
+    background-color: inherit !important;
+  }
 `;
 const UserMenu = styled.div`
   display: flex;
