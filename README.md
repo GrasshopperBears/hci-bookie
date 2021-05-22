@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# HCI DP 4
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Team twenty-four
 
-## Available Scripts
+Jinwoo Lee, Geonhee Kang, Hwang Youngzu, Lee Sanghyun
 
-In the project directory, you can run:
+## Live demo URL
 
-### `npm start`
+https://hci-bookie.firebaseapp.com/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### How to use it
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- First you have to sign up. Click `sign up` button at the banner. We provide Google and GitHub OAuth.
+- You can see specific description of session if you click session card at the main page.
+  - You can join the session at the session detail page.
+- You can create your own debate with `Open Debate` button at the banner or My debates tab at the main page.
+- You can read how other users are thinking. Click `share board` button at session detail pages.
+- You can see other people's reading history. Click user icons where it exist.
 
-### `npm test`
+## Core dependencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- @material-ui
+- axios
+- dotenv
+- firebase
+- react
+- styled-components
 
-### `npm run build`
+## Files description
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### /src/index.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Entry point of application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### /src/App.js
 
-### `npm run eject`
+Checks whether user logged in and shows components
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### /src/router.js
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Main router of application. shows banner and pages depend on path
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### /src/MainPage.js
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Main page of application. It shows sessions that user is participating and newly created sessions.
