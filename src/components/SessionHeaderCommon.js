@@ -10,12 +10,13 @@ const db = firebase.firestore();
 
 const SessionHeaderComon = ({ title, likes }) => {
   const { id } = useParams();
+  const [liked, setLiked] = useState(likes.includes(firebase.auth().currentUser?.uid));
   const [likeNumber, setLikeNumber] = useState(likes?.length || 0);
 
   const likeHandler = async () => {
     const { currentUser } = firebase.auth();
     if (!currentUser) return alert('You have to log in');
-    if (likes.includes(currentUser.uid)) {
+    if (liked) {
       await db
         .collection('sessions')
         .doc(id)
@@ -28,11 +29,15 @@ const SessionHeaderComon = ({ title, likes }) => {
         .update({ likes: firebase.firestore.FieldValue.arrayUnion(currentUser.uid) });
       setLikeNumber(likeNumber + 1);
     }
+    setLiked(!liked);
   };
 
   return (
     <Wrapper>
-      <LikeButton onClick={likeHandler} startIcon={<FontAwesomeIcon icon={faHeart} color='red' size='1x' />}>
+      <LikeButton
+        onClick={likeHandler}
+        startIcon={<FontAwesomeIcon icon={faHeart} color={liked ? 'red' : 'grey'} size='1x' />}
+      >
         {likeNumber} likes
       </LikeButton>
       <BookinfoWrapper>
