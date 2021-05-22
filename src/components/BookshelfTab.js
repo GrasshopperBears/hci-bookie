@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
+import firebase from '../firebase-config';
 import PropTypes from 'prop-types';
-import { AppBar, Tab, Tabs, Typography, Divider, Box } from '@material-ui/core';
+import { AppBar, Tab, Tabs, Typography, Divider, Box, Button } from '@material-ui/core';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -37,18 +38,20 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-export default function BookshelfTabs({ title, author, publisher, release, review, comment }) {
+export default function BookshelfTabs({ info, isOwner }) {
+  const { title, authors, publisher, datetime } = info.bookInfo;
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const setBestBook = async () => {
+    await firebase
+      .firestore()
+      .collection('bookshelf')
+      .doc(firebase.auth().currentUser.uid)
+      .update({ bestBook: info });
+    alert('Current book is set as the best book');
   };
 
   return (
@@ -57,24 +60,32 @@ export default function BookshelfTabs({ title, author, publisher, release, revie
         <Tabs value={value} onChange={handleChange}>
           <Tab label='Information' {...a11yProps(0)} />
           <Tab label='Review' {...a11yProps(1)} />
+          {isOwner && (
+            <>
+              <div style={{ flex: '1' }} />
+              <Button onClick={setBestBook} style={{ padding: ' 0 15px' }}>
+                Set my best book
+              </Button>
+            </>
+          )}
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <InfoText variant='body1'>Title: {title}</InfoText>
-        <InfoText variant='body1'>Authos: {author}</InfoText>
+        <InfoText variant='body1'>Authos: {authors?.join(', ') || ''}</InfoText>
         <InfoText variant='body1'>Publisher: {publisher}</InfoText>
-        <InfoText variant='body1'>Release: {release}</InfoText>
+        <InfoText variant='body1'>Release: {moment(datetime).format('YYYY-MM-DD')}</InfoText>
         <Divider orientation='horizontal' style={{ margin: '20px 0' }} />
         <Typography variant='h6' style={{ marginBottom: '20px' }}>
           Owner's comment
         </Typography>
         <Typography variant='body1' style={{ paddingLeft: '30px' }}>
-          {comment}
+          {info.comment}
         </Typography>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Typography variant='body1' style={{ paddingTop: '20px' }}>
-          {review}
+          {info.review}
         </Typography>
       </TabPanel>
     </Tabstyle>

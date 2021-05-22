@@ -70,14 +70,14 @@ const MyDebateBody = ({ info }) => {
             </BookinfoWrapper>
           )}
           <BookinfoWrapper>
-            <ParticipantsWrapper style={{ width: '20%' }}>
+            <ParticipantsWrapper style={{ width: '30%' }}>
               <Typography variant='body2'>Host</Typography>
-              <UserInfo img={host.profileImg} name={host.displayName} />
+              <UserInfo info={host} />
             </ParticipantsWrapper>
-            <ParticipantsWrapper style={{ width: '80%' }}>
+            <ParticipantsWrapper style={{ width: '70%' }}>
               <Typography variant='body2'>Participants</Typography>
               {participants.map((el) => (
-                <UserInfo key={el.uid} img={el.profileImg} name={el.displayName} />
+                <UserInfo key={el.uid} info={el} />
               ))}
             </ParticipantsWrapper>
           </BookinfoWrapper>
@@ -95,16 +95,23 @@ const MyDebateBody = ({ info }) => {
   );
 };
 
-const UserInfo = ({ img, name }) => {
+const UserInfo = ({ info }) => {
+  const { profileImg, uid, displayName } = info;
+  const history = useHistory();
+
+  const clickHandler = () => {
+    if (uid) history.push(`/bookshelf/${uid}`);
+  };
+
   return (
-    <InfoWrapper>
+    <InfoWrapper onClick={clickHandler} hasUser={!!uid}>
       <ProfileImg
-        src={img || process.env.PUBLIC_URL + '/default-profile.png'}
+        src={profileImg || process.env.PUBLIC_URL + '/default-profile.png'}
         style={{ margin: '10px 20px 10px 0' }}
         alt='book cover'
       />
       <Typography variant='body1' style={{ color: 'black', fontWeight: 'bold', margin: '0 15px 0 0' }}>
-        {name || 'Anonymous user'}
+        {displayName || 'Anonymous user'}
       </Typography>
     </InfoWrapper>
   );
@@ -114,6 +121,13 @@ const InfoWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: max-content;
+  padding: 0 15px;
+  border-radius: 3px;
+  :hover {
+    cursor: ${(props) => props.hasUser && 'pointer'};
+    background-color: ${(props) => props.hasUser && 'rgba(30, 30, 30, 0.1)'};
+  }
 `;
 
 const ProfileImg = styled.img`

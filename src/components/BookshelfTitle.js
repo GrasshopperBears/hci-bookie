@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const BookshelfTitle = ({ name, clickHandler }) => {
   const classes = useStyles();
-  const styleRules = { color: '#EC9F05', width: 'max-content', height: '0', margin: '-20px 0 0 0' };
+  const styleRules = { color: '#EC9F05', width: 'max-content', height: '0', top: '-20px' };
 
   return (
     <CardActionArea

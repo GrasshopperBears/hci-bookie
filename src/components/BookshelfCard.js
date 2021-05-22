@@ -3,20 +3,20 @@ import styled from 'styled-components';
 import { Card, CardActionArea, CardMedia } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
-const BookshelfCard = ({ info, size, userName, isDetail }) => {
+const BookshelfCard = ({ info, size, userName, isDetail, isOwner, isBest }) => {
   const history = useHistory();
 
   const clickHandler = () => {
-    if (!isDetail) history.push({ pathname: `/bookshelf/detail`, state: { info, userName } });
+    if (!isDetail) history.push({ pathname: `/bookshelf/detail`, state: { info, userName, isOwner } });
   };
 
-  var styleRules = { position: 'block', float: 'left', width: '330px', height: '550px', margin: '100px' };
+  var styleRules = {};
 
   if (size === 'small') {
     styleRules = { position: 'block', float: 'left', width: '150px', height: '250px' };
   }
   return (
-    <Wrapper style={styleRules}>
+    <Wrapper style={styleRules} isBest={isBest}>
       <CardActionArea onClick={clickHandler}>
         <CardMedia
           image={info.bookInfo.thumbnail}
@@ -29,6 +29,10 @@ const BookshelfCard = ({ info, size, userName, isDetail }) => {
 };
 
 const Wrapper = styled(Card)`
+  width: 60%;
+  height: 60vh;
+  border: ${(props) => props.isBest && '3px solid #ec9f05'};
+
   > button {
     display: flex;
     flex-direction: column;
