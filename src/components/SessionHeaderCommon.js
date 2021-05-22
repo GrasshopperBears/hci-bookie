@@ -32,10 +32,7 @@ const SessionHeaderComon = ({ title, likes }) => {
 
   return (
     <Wrapper>
-      <LikeButton
-        onClick={likeHandler}
-        startIcon={<FontAwesomeIcon icon={faHeart} color='red' size='0.5x' />}
-      >
+      <LikeButton onClick={likeHandler} startIcon={<FontAwesomeIcon icon={faHeart} color='red' size='1x' />}>
         {likeNumber} likes
       </LikeButton>
       <BookinfoWrapper>

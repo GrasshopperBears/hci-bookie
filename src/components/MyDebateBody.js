@@ -77,7 +77,7 @@ const MyDebateBody = ({ info }) => {
             <ParticipantsWrapper style={{ width: '80%' }}>
               <Typography variant='body2'>Participants</Typography>
               {participants.map((el) => (
-                <UserInfo img={el.profileImg} name={el.displayName} />
+                <UserInfo key={el.uid} img={el.profileImg} name={el.displayName} />
               ))}
             </ParticipantsWrapper>
           </BookinfoWrapper>
@@ -103,7 +103,7 @@ const UserInfo = ({ img, name }) => {
         style={{ margin: '10px 20px 10px 0' }}
         alt='book cover'
       />
-      <Typography variant='h8' style={{ color: 'black', fontWeight: 'bold', margin: '0 15px 0 0' }}>
+      <Typography variant='body1' style={{ color: 'black', fontWeight: 'bold', margin: '0 15px 0 0' }}>
         {name || 'Anonymous user'}
       </Typography>
     </InfoWrapper>
@@ -117,8 +117,8 @@ const InfoWrapper = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 1.9rem;
+  height: 1.9rem;
 `;
 
 const GridStyled = styled(Grid)`

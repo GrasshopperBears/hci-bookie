@@ -12,7 +12,7 @@ const SessionDetailHeader = ({ info }) => {
   return (
     <Grid container spacing={1}>
       <SessionHeaderCommon title={title} likes={likes} />
-      <GridStyled item xs={12} direction='column' alignItems='center' justify='flex-start'>
+      <GridStyled container item xs={12} direction='column' alignItems='center' justify='flex-start'>
         <BookinfoWrapper>
           <Typography variant='h6' style={{ marginBottom: '15px' }}>
             {moment(dateTime).diff(moment(), 'days')} days left to enroll!
@@ -20,12 +20,10 @@ const SessionDetailHeader = ({ info }) => {
         </BookinfoWrapper>
         <BookinfoWrapper>
           <Typography style={{ marginBottom: '15px' }}>
-            <Typography style={{ marginBottom: '15px' }}>
-              <IconWithMargin icon={faCalendar} size='0.5x' />
-              {moment(dateTime).format('mm/DD, HH:MM')}
-              <IconWithMargin icon={faUsers} size='0.5x' />
-              {participants.length} members
-            </Typography>
+            <IconWithMargin icon={faCalendar} size='1x' />
+            {moment(dateTime).format('mm/DD, HH:MM')}
+            <IconWithMargin icon={faUsers} size='1x' />
+            {participants.length} members
           </Typography>
         </BookinfoWrapper>
       </GridStyled>

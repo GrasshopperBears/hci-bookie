@@ -29,7 +29,7 @@ const SessionDetailBody = ({ info }) => {
 
   return (
     <Grid container spacing={1}>
-      <GridStyled item xs={12} alignItems='center' direction='column' justify='flex-start'>
+      <GridStyled container alignItems='center' direction='column' justify='flex-start'>
         <Typography
           variant='body2'
           style={{
@@ -40,7 +40,7 @@ const SessionDetailBody = ({ info }) => {
           }}
         >
           {briefDescription.split('/n').map((line) => (
-            <p>{line}</p>
+            <span>{line}</span>
           ))}
         </Typography>
         <Typography variant='h4' style={{ fontWeight: 600, marginBottom: '10px' }}>
@@ -67,12 +67,12 @@ const SessionDetailBody = ({ info }) => {
 
         <Typography variant='body1' style={{ maxWidth: '100%', marginBottom: '20px' }}>
           {content.split('/n').map((line) => (
-            <p>{line}</p>
+            <span>{line}</span>
           ))}
         </Typography>
         {/* <BookinfoWrapper style={{ width: '100%', justifyContent: 'flex-end' }}>
           <Typography align='right' style={{ marginBottom: '5px', maxWidth: '100%' }}>
-            <FontAwesomeIcon icon={faHeart} color='red' size='0.5x' /> {likes || 0} likes
+            <FontAwesomeIcon icon={faHeart} color='red' size='1x' /> {likes || 0} likes
           </Typography>
         </BookinfoWrapper> */}
         <HorizonLine w='100%' m='0 0 10px 0' b='5px solid #EEEEEE' />
@@ -84,15 +84,14 @@ const SessionDetailBody = ({ info }) => {
         </Typography>
         <UserInformation isHost info={hostInfo} />
         {participants.map((p) => (
-          <UserInformation info={p} />
+          <UserInformation key={p.uid} info={p} />
         ))}
         <HorizonLine w='100%' m='10px 0 20px 0 ' b='5px solid #EC9F05' />
       </GridStyled>
-      <GridStyled item xs={12} alignItems='center' direction='row' justify='center'>
+      <GridStyled container alignItems='center' direction='row' justify='center'>
         <Button
           variant='contained'
           onClick={button_shareboard}
-          color='grey'
           style={{ margin: '0 20px 0 0', padding: '5px 20px 5px 20px' }}
         >
           Share board
@@ -112,7 +111,6 @@ const SessionDetailBody = ({ info }) => {
 
 const GridStyled = styled(Grid)`
   display: flex;
-  height: 100%;
   width: 100%;
 `;
 const BookinfoWrapper = styled.div`
@@ -137,7 +135,7 @@ const HorizonLine = ({ w, m, b }) => {
         lineHeight: '0.1em',
         margin: m,
       }}
-    ></div>
+    />
   );
 };
 

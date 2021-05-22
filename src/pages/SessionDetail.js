@@ -23,11 +23,11 @@ const SessionDetail = () => {
   }, [id]);
 
   return bookInfo ? (
-    <Grid container spacing={1}>
-      <GridStyled item xs={12} direction='column' alignItems='center' justify='center'>
+    <Grid container spacing={1} direction='column' alignItems='center' justify='center'>
+      <GridStyled item xs={12}>
         <SessionDetailHeader info={bookInfo} />
       </GridStyled>
-      <GridStyled item xs={12} direction='column' alignItems='center' justify='center'>
+      <GridStyled item xs={12}>
         <SessionDetailBody info={bookInfo} />
       </GridStyled>
     </Grid>
