@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import firebase from '../firebase-config';
 import styled from 'styled-components';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { makeStyles } from '@material-ui/core/styles';
+const font = "'Russo One', sans-serif";
 
 const db = firebase.firestore();
 
@@ -41,7 +43,7 @@ const SessionHeaderComon = ({ title, likes }) => {
         {likeNumber} likes
       </LikeButton>
       <BookinfoWrapper>
-        <Typography variant='h4' style={{ fontWeight: 600, marginBottom: '15px' }}>
+        <Typography variant='h4' style={{ fontFamily: font, fontWeight: 600, marginBottom: '15px' }}>
           {title}
         </Typography>
         <HorizonLine />

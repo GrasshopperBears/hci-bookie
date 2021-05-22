@@ -5,9 +5,12 @@ import { faCalendar, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { Grid, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import SessionHeaderCommon from './SessionHeaderCommon';
+import { makeStyles } from '@material-ui/core/styles';
+const font = "'Russo One', sans-serif";
 
 const SessionDetailHeader = ({ info }) => {
   const { title, likes, dateTime, participants } = info;
+  const classes = useStyles();
 
   return (
     <Grid container spacing={1}>
@@ -30,7 +33,15 @@ const SessionDetailHeader = ({ info }) => {
     </Grid>
   );
 };
-
+const useStyles = makeStyles({
+  title: {
+    color: '#FFFFFF',
+    backgroundColor: '#EC9F05',
+    padding: '10px 35px',
+    fontSize: '1.6rem',
+    fontWeight: 'bold',
+  },
+});
 const GridStyled = styled(Grid)`
   display: flex;
   height: 100%;

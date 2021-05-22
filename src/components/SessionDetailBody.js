@@ -22,8 +22,8 @@ const SessionDetailBody = ({ info }) => {
 
   const [hideApply, setHideApply] = useState(
     !firebase.auth().currentUser ||
-      hostUid === firebase.auth().currentUser.uid ||
-      participants.findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1,
+    hostUid === firebase.auth().currentUser.uid ||
+    participants.findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1,
   );
   const history = useHistory();
   const hostInfo = { name: hostName };
@@ -60,7 +60,7 @@ const SessionDetailBody = ({ info }) => {
             <span>{line}</span>
           ))}
         </Typography>
-        <Typography variant='h4' style={{ fontWeight: 600, marginBottom: '10px' }}>
+        <Typography variant='h4' style={{ fontSize: '1.8rem', fontWeight: 500, marginBottom: '10px' }}>
           {title}
         </Typography>
         <Typography variant='body1' style={{ marginBottom: '5px' }}>
