@@ -13,7 +13,9 @@ const Signup = () => {
     try {
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
       await firebase.auth().signInWithPopup(provider);
-      history.push('/');
+      const { uid, displayName } = firebase.auth().currentUser;
+      await firebase.firestore().collection('bookshelf').doc(uid).set({ displayName, bookmarks: [] });
+      window.location.href = '/';
     } catch (e) {
       // const errorCode = e.code;
       // const errorMessage = e.message;

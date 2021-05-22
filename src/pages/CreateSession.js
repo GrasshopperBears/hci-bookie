@@ -75,7 +75,7 @@ const CreateSession = () => {
   };
 
   return (
-    <>
+    <Wrapper>
       <Typography variant='h2'>Create session</Typography>
       <form onSubmit={submitHandler}>
         <FormControl fullWidth margin='normal'>
@@ -214,9 +214,13 @@ const CreateSession = () => {
           </Button>
         </CeterDiv>
       </form>
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  margin-bottom: 40px;
+`;
 
 const RowDiv = styled.div`
   display: flex;
@@ -230,7 +234,7 @@ const RadioGroupStyled = styled(RadioGroup)`
 `;
 
 const GenreButton = styled(Button)`
-  justify-content: flex-start;
+  justify-content: flex-start !important;
 `;
 
 export default CreateSession;

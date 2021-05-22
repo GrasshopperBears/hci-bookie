@@ -13,7 +13,7 @@ const Signin = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
-      history.push('/');
+      window.location.href = '/';
     } catch (e) {
       alert('Error occured during signin. Please try again.');
     }

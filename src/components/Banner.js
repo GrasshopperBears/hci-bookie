@@ -1,12 +1,11 @@
 import React from 'react';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Button, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import firebase from '../firebase-config';
 import { useHistory } from 'react-router-dom';
 import { GoMegaphone } from 'react-icons/go';
 import { ImBooks } from 'react-icons/im';
-import { RiLogoutCircleRFill } from 'react-icons/ri';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { IoMdLogOut } from 'react-icons/io';
 import styled from 'styled-components';
 
 const font = "'Russo One', sans-serif";
@@ -16,7 +15,7 @@ const Banner = () => {
   const history = useHistory();
   const main = '/';
   const createsession = '/session/create';
-  const bookshelf = '/bookshelf/:id';
+  const bookshelf = `/bookshelf/${firebase.auth().currentUser?.uid}`;
   const { currentUser } = firebase.auth();
 
   const bookie = () => {
@@ -31,6 +30,11 @@ const Banner = () => {
   const clickSecondButton = () => {
     if (currentUser) history.push(bookshelf);
     else history.push('/signin');
+  };
+
+  const logoutHandler = () => {
+    firebase.auth().signOut();
+    window.location.href = '/';
   };
 
   // top padding +40px 위치에 button 위치하게 함. Ex) paddingTop: 50px => button top: 90px; paddingTop: 100px => button top: 140px,
@@ -57,6 +61,18 @@ const Banner = () => {
           >
             {currentUser ? 'My Bookshelf' : 'Sign in'}
           </Button>
+          {currentUser && (
+            <>
+              <Divider orientation='vertical' flexItem light />
+              <Button
+                className={classes.button}
+                onClick={logoutHandler}
+                startIcon={<IoMdLogOut className={classes.icon} />}
+              >
+                Logout
+              </Button>
+            </>
+          )}
         </UserMenu>
       </Wrapper>
       <HorizonLine w='100%' m='10px 0 20px 0' b='5px solid #EC9F05' />

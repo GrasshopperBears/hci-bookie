@@ -3,8 +3,10 @@ import CeterDiv from '../components/CenterDiv';
 import { TextField, Typography, FormControl, Button } from '@material-ui/core';
 import EnterBookInformation from '../components/EnterBookInformation';
 import firebase from '../firebase-config';
+import { useHistory } from 'react-router-dom';
 
 const AddMyBookmark = () => {
+  const history = useHistory();
   const [bookInfo, setBookInfo] = useState(undefined);
   const comment = useRef(undefined);
   const review = useRef(undefined);
@@ -12,20 +14,25 @@ const AddMyBookmark = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!bookInfo) return alert('Please enter book information');
+    if (!firebase.auth().currentUser) return alert('Please add bookmark after sign in');
     await firebase
       .firestore()
       .collection('bookshelf')
-      .add({
-        bookInfo,
-        comment: comment.current.value,
-        review: review.current.value,
+      .doc(firebase.auth().currentUser.uid)
+      .update({
+        bookmarks: firebase.firestore.FieldValue.arrayUnion({
+          bookInfo,
+          comment: comment.current.value,
+          review: review.current.value,
+        }),
       });
+    history.push(`/bookshelf/${firebase.auth().currentUser.uid}`);
   };
 
   return (
     <>
       <Typography variant='h2'>Add New Book</Typography>
-        <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler}>
         <EnterBookInformation bookInfo={bookInfo} setBookInfo={setBookInfo} />
         <FormControl fullWidth margin='normal'>
           <TextField
