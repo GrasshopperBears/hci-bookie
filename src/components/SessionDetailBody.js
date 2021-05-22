@@ -1,11 +1,14 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import UserInformation from '../components/UserInformation';
 import firebase from '../firebase-config';
 import { Grid, Typography, Button } from '@material-ui/core';
 import styled from 'styled-components';
 
+const db = firebase.firestore();
+
 const SessionDetailBody = ({ info }) => {
+  const { id } = useParams();
   const {
     briefDescription,
     title,
@@ -16,14 +19,29 @@ const SessionDetailBody = ({ info }) => {
     participants,
     host: { displayName: hostName, uid: hostUid },
   } = info;
+
+  const [hideApply, setHideApply] = useState(
+    !firebase.auth().currentUser ||
+      hostUid === firebase.auth().currentUser.uid ||
+      participants.findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1,
+  );
   const history = useHistory();
   const hostInfo = { name: hostName };
 
   const button_shareboard = () => {
     history.push('/shareboard/asd/add');
   };
-  const button_apply = () => {
-    history.push('/session/detail/asd');
+  const button_apply = async () => {
+    await db
+      .collection('sessions')
+      .doc(id)
+      .update({
+        participants: firebase.firestore.FieldValue.arrayUnion({
+          uid: firebase.auth().currentUser.uid,
+          displayName: firebase.auth().currentUser.displayName,
+        }),
+      });
+    setHideApply(true);
   };
 
   return (
@@ -95,7 +113,7 @@ const SessionDetailBody = ({ info }) => {
         >
           Share board
         </Button>
-        {hostUid !== firebase.auth().currentUser.uid && (
+        {!hideApply && (
           <Button
             variant='contained'
             onClick={button_apply}
@@ -125,6 +143,7 @@ const BookCover = styled.img`
   max-height: 100%;
   margin: 20px 0;
 `;
+
 const HorizonLine = ({ w, m, b }) => {
   return (
     <div

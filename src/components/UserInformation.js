@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Grid, Typography } from '@material-ui/core';
 
 const UserInformation = ({ isHost, info }) => {
-  const { profileImg, name, quote } = info;
+  const { profileImg, displayName, quote } = info;
 
   return (
     <Grid container spacing={1} direction='row' alignItems='center' justify='flex-start'>
@@ -16,7 +16,7 @@ const UserInformation = ({ isHost, info }) => {
         alt='book cover'
       />
       <Typography variant='body1' style={{ color: 'black', fontWeight: 'bold', margin: '0 15px 0 0' }}>
-        {name || 'Anonymous user'}
+        {displayName || 'Anonymous user'}
       </Typography>
       <Typography variant='body2' style={{ color: 'grey', fontStyle: 'italic', margin: '0 10px 0 0' }}>
         {quote || ''}
