@@ -23,18 +23,22 @@ const SessionDetail = () => {
   }, [id]);
 
   return bookInfo ? (
-    <Grid container spacing={1} direction='column' alignItems='center' justify='center'>
+    <Wrapper container spacing={1} direction='column' alignItems='center' justify='center'>
       <GridStyled item xs={12}>
         <SessionDetailHeader info={bookInfo} />
       </GridStyled>
       <GridStyled item xs={12}>
         <SessionDetailBody info={bookInfo} />
       </GridStyled>
-    </Grid>
+    </Wrapper>
   ) : (
     <Loading />
   );
 };
+
+const Wrapper = styled(Grid)`
+  margin-bottom: 50px !important;
+`;
 
 const GridStyled = styled(Grid)`
   display: flex;
