@@ -31,7 +31,7 @@ const SessionDetailBody = ({ info }) => {
     <Grid container spacing={1}>
       <GridStyled item xs={12} alignItems='center' direction='column' justify='flex-start'>
         <Typography
-          variant='h7'
+          variant='body2'
           style={{
             backgroundColor: '#EEEEEE',
             padding: '20px 100px 20px 100px',
@@ -46,13 +46,12 @@ const SessionDetailBody = ({ info }) => {
         <Typography variant='h4' style={{ fontWeight: 600, marginBottom: '10px' }}>
           {title}
         </Typography>
-        <Typography variant='h7' style={{ marginBottom: '5px' }}>
+        <Typography variant='body1' style={{ marginBottom: '5px' }}>
           Author : {authors.join(', ')}
         </Typography>
-        <Typography variant='h7' style={{ marginBottom: '5px' }}>
+        <Typography variant='body1' style={{ marginBottom: '5px' }}>
           Publisher : {publisher}
         </Typography>
-
         <BookinfoWrapper>
           <BookCover src={thumbnail} alt='book cover' />
         </BookinfoWrapper>
@@ -66,14 +65,14 @@ const SessionDetailBody = ({ info }) => {
         <HorizonLine w='100%' m='10px 0 -5px 0' b='5px solid #EEEEEE' />
         <HorizonLine w='10%' m='0 0 30px 0 ' b='5px solid #EC9F05' />
 
-        <Typography variant='h7' style={{ maxWidth: '100%', marginBottom: '20px' }}>
+        <Typography variant='body1' style={{ maxWidth: '100%', marginBottom: '20px' }}>
           {content.split('/n').map((line) => (
             <p>{line}</p>
           ))}
         </Typography>
         <BookinfoWrapper style={{ width: '100%', justifyContent: 'flex-end' }}>
-          <Typography variant='h7' align='right' style={{ marginBottom: '5px', maxWidth: '100%' }}>
-            <FontAwesomeIcon icon={faHeart} color='red' size='0.5x' /> {likes} likes
+          <Typography align='right' style={{ marginBottom: '5px', maxWidth: '100%' }}>
+            <FontAwesomeIcon icon={faHeart} color='red' size='0.5x' /> {likes || 0} likes
           </Typography>
         </BookinfoWrapper>
         <HorizonLine w='100%' m='0 0 10px 0' b='5px solid #EEEEEE' />
@@ -125,6 +124,7 @@ const BookinfoWrapper = styled.div`
 const BookCover = styled.img`
   max-width: 100%;
   max-height: 100%;
+  margin: 20px 0;
 `;
 const HorizonLine = ({ w, m, b }) => {
   return (
