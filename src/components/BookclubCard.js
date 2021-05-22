@@ -4,10 +4,13 @@ import moment from 'moment';
 import { Card, CardMedia, CardContent, Typography, CardActionArea } from '@material-ui/core';
 import styled from 'styled-components';
 import genres from '../genres';
+import { makeStyles } from '@material-ui/core/styles';
+const font = "'Russo One', sans-serif";
 
 const BookclubCard = ({ info, url }) => {
   const { bookInfo, title, dateTime, content, genre, participants } = info;
   const history = useHistory();
+  const classes = useStyles();
 
   const clickHandler = () => {
     history.push(url);
@@ -18,7 +21,7 @@ const BookclubCard = ({ info, url }) => {
       <CardActionArea onClick={clickHandler} style={{ height: '100%', width: '100%' }}>
         <CardMedia image={bookInfo.thumbnail} title='Book cover' style={{ width: '100%', height: '55%' }} />
         <CardContentStyled>
-          <Title variant='h5'>{title}</Title>
+          <Title variant='h5' className={classes.cardTitle}>{title}</Title>
           <Typography variant='body1' style={{ marginBottom: '15px' }}>
             Date: {moment(dateTime).format('MMMM Do, H:mm')}
           </Typography>
@@ -27,7 +30,7 @@ const BookclubCard = ({ info, url }) => {
           </SessionDescription>
           <Footer>
             {genre && (
-              <GenreTag color={genres.find((el) => el.genre === genre).color || ''}>#{genre}</GenreTag>
+              <GenreTag color={genres.find((el) => el.genre === genre).color || ''}>#{genre} </GenreTag>
             )}
             <Typography>
               Currently {participants.length + 1} {participants.length + 1 <= 1 ? 'person' : 'people'} joined
@@ -38,6 +41,14 @@ const BookclubCard = ({ info, url }) => {
     </CardStyled>
   );
 };
+
+const useStyles = makeStyles({
+  cardTitle: {
+    color: '#000000',
+    fontFamily: font,
+    fontSize: '1.2rem',
+  },
+});
 
 const CardStyled = styled(Card)`
   position: block;
