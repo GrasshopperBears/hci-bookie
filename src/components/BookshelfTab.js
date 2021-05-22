@@ -2,20 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { Divider } from '@material-ui/core';
+import { AppBar, Tab, Tabs, Typography, Divider, Box } from '@material-ui/core';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
-      role="tabpanel"
-      display={value !== index && "none"}
+      role='tabpanel'
+      display={value !== index && 'none'}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
@@ -49,14 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BookshelfTabs({ title, author, publisher, release, genre, review1, review2, comment }) {
-  var t = `Title: ${title}`;
-  var a = `Author: ${author}`;
-  var p = `Publisher: ${publisher}`;
-  var r = `Release: ${release}`;
-  var g = `Genre: ${genre}`;
-
-  const classes = useStyles();
+export default function BookshelfTabs({ title, author, publisher, release, review, comment }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -64,44 +52,40 @@ export default function BookshelfTabs({ title, author, publisher, release, genre
   };
 
   return (
-    <div className={classes.root}>
-      <Tabstyle>
-        <AppBar position="static">
-          <Tabs value={value} onChange={handleChange}>
-            <Tab label="Information" {...a11yProps(0)} />
-            <Tab label="Review" {...a11yProps(1)} />
-          </Tabs>
-        </AppBar>
-        <TabPanel value={value} index={0}>
-          <Divider orientation='horizontal' />
-          <br />
-          <b>{t}</b><br />
-          <b>{a}</b><br />
-          <b>{p}</b><br />
-          <b>{r}</b><br />
-          <b>{g}</b><br />
-          <br />
-          <Divider orientation='horizontal' />
-          <h4><b>Owner's comment</b></h4>
-          <h4>{comment}</h4>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Divider orientation='horizontal' />
-          <br />
-          {review1}<br />
-          <br />
-          {review2}
-          <br />
-          <br />
-          <Divider orientation='horizontal' />
-        </TabPanel>
-      </Tabstyle>
-    </div>
+    <Tabstyle>
+      <AppBar position='static' color='transparent'>
+        <Tabs value={value} onChange={handleChange}>
+          <Tab label='Information' {...a11yProps(0)} />
+          <Tab label='Review' {...a11yProps(1)} />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index={0}>
+        <InfoText variant='body1'>Title: {title}</InfoText>
+        <InfoText variant='body1'>Authos: {author}</InfoText>
+        <InfoText variant='body1'>Publisher: {publisher}</InfoText>
+        <InfoText variant='body1'>Release: {release}</InfoText>
+        <Divider orientation='horizontal' style={{ margin: '20px 0' }} />
+        <Typography variant='h6' style={{ marginBottom: '20px' }}>
+          Owner's comment
+        </Typography>
+        <Typography variant='body1' style={{ paddingLeft: '30px' }}>
+          {comment}
+        </Typography>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Typography variant='body1' style={{ paddingTop: '20px' }}>
+          {review}
+        </Typography>
+      </TabPanel>
+    </Tabstyle>
   );
 }
 
 const Tabstyle = styled.div`
-  float: left;
-  margin: 100px;
-  width: 60%;
+  margin-top: 100px;
+  padding: 0 50px;
+`;
+
+const InfoText = styled(Typography)`
+  margin: 10px 0 !important;
 `;

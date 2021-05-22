@@ -1,37 +1,45 @@
 import React from 'react';
-import styled from 'styled-components';
+import moment from 'moment';
 import BookshelfTabs from '../components/BookshelfTab';
 import BookshelfCard from '../components/BookshelfCard';
 import BookshelfTitle from '../components/BookshelfTitle';
 import Grid from '@material-ui/core/Grid';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const BookshelfDetail = () => {
-  const title = "Think Again: The Power of Knowing What You Don’t Know";
-  const author = "Adam M. Grant";
-  const publisher = "Viking";
-  const release = "2021.02.02";
-  const genre = "Economy, Management, Human Resource Management";
-  const review1 = " Think Again is a book about the benefit of doubt, and about how we can get better at embracing the unknown and the joy of being wrong. Evidence has shown that creative geniuses are not attached to one identity, but constantly willing to rethink their stances and that leaders who admit they don't know something and seek critical feedback lead more productive and innovative teams.\n New evidence shows us that as a mindset and a skilllset, rethinking can be taught and Grant explains how to develop the necessary qualities to do it. Section 1 explores why we struggle to think again and how we can learn to do it as individuals, arguing that 'grit' alone can actually be counterproductive. Section 2 discusses how we can help others think again through learning about 'argument literacy'. And the final section 3 looks at how schools, businesses and governments fall short in building cultures that encourage rethinking.";
-  const review2 = " New evidence shows us that as a mindset and a skilllset, rethinking can be taught and Grant explains how to develop the necessary qualities to do it. Section 1 explores why we struggle to think again and how we can learn to do it as individuals, arguing that 'grit' alone can actually be counterproductive. Section 2 discusses how we can help others think again through learning about 'argument literacy'. And the final section 3 looks at how schools, businesses and governments fall short in building cultures that encourage rethinking.";
-  const comment = "> Fascinating.. A must-read for all people.";
-  const imgUrl = "https://images-na.ssl-images-amazon.com/images/I/41Ojcfxmn1L._SY291_BO1,204,203,200_QL40_FMwebp_.jpg";
+  const history = useHistory();
+  const {
+    state: { info, userName },
+  } = useLocation();
+  const { title, authors, publisher, datetime } = info.bookInfo;
 
   return (
-
-    <Grid container direction="column">
-
-      <BookshelfTitle />
-      <Grid container direction="row">
-        <BookshelfCard imgUrl={imgUrl} />
-        <BookshelfTabs title={title} author={author} publisher={publisher} release={release} genre={genre} review1={review1} review2={review2} comment={comment}>
-        </BookshelfTabs>
+    <Grid container direction='column'>
+      <BookshelfTitle
+        name={userName}
+        clickHandler={() => {
+          history.goBack();
+        }}
+      />
+      <Grid container direction='row'>
+        <Grid item lg={4}>
+          <BookshelfCard info={info} isDetail />
+        </Grid>
+        <Grid item lg={8}>
+          <BookshelfTabs
+            title={title}
+            author={authors?.join(', ') || ''}
+            publisher={publisher}
+            release={moment(datetime).format('YYYY-MM-DD')}
+            comment={info.comment}
+            review={info.review}
+            // genre={genre}
+            // review2={review2}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );
 };
-
-const BookshelfWrapper = styled.div`
-  text-align: left;
-`;
 
 export default BookshelfDetail;

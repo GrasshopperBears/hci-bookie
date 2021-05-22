@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import { Card, CardActionArea, CardMedia } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
-const BookshelfCard = ({ imgUrl, size }) => {
+const BookshelfCard = ({ info, size, userName, isDetail }) => {
   const history = useHistory();
-  const url = '/bookshelf/detail/id';
 
   const clickHandler = () => {
-    history.push(url);
+    if (!isDetail) history.push({ pathname: `/bookshelf/detail`, state: { info, userName } });
   };
 
   var styleRules = { position: 'block', float: 'left', width: '330px', height: '550px', margin: '100px' };
@@ -19,7 +18,11 @@ const BookshelfCard = ({ imgUrl, size }) => {
   return (
     <Wrapper style={styleRules}>
       <CardActionArea onClick={clickHandler}>
-        <CardMedia image={imgUrl} title='Book cover' style={{ width: '100%', height: '100%' }} />
+        <CardMedia
+          image={info.bookInfo.thumbnail}
+          title='Book cover'
+          style={{ width: '100%', height: '100%' }}
+        />
       </CardActionArea>
     </Wrapper>
   );

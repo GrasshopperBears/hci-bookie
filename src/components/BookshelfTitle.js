@@ -2,12 +2,17 @@ import React from 'react';
 import { Typography, CardActionArea } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const BookshelfTitle = ({ name }) => {
+const BookshelfTitle = ({ name, clickHandler }) => {
   const classes = useStyles();
   const styleRules = { color: '#EC9F05', width: 'max-content', height: '0', margin: '-20px 0 0 0' };
 
   return (
-    <CardActionArea style={styleRules}>
+    <CardActionArea
+      style={styleRules}
+      onClick={() => {
+        if (clickHandler) clickHandler();
+      }}
+    >
       <Typography className={classes.title}>{name}'s Bookshelf</Typography>
     </CardActionArea>
   );

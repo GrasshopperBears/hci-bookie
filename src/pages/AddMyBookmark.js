@@ -24,6 +24,7 @@ const AddMyBookmark = () => {
           bookInfo,
           comment: comment.current.value,
           review: review.current.value,
+          comments: [],
         }),
       });
     history.push(`/bookshelf/${firebase.auth().currentUser.uid}`);
