@@ -21,6 +21,7 @@ const AuthIcons = ({ googleHandler, githubHandler }) => {
 const AuthIconsWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 20px 0;
 
   svg {
     margin-right: 20px;

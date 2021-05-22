@@ -30,7 +30,6 @@ const Signin = () => {
 
   return (
     <Wrapper>
-      <Typography variant='h2'>Welcome back!</Typography>
       <Typography variant='h4'>Signin with</Typography>
       <AuthIcons googleHandler={googleSigninHandler} githubHandler={githubSigninHandler} />
       <Typography>
@@ -47,7 +46,7 @@ const Wrapper = styled.div`
   align-items: center;
 
   .MuiTypography-root {
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
   a {
     margin-left: 0.4rem;
