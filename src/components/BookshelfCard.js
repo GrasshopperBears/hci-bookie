@@ -5,25 +5,25 @@ import { useHistory } from 'react-router-dom';
 
 
 const BookshelfCard = ({ imgUrl, size }) => {
-    const history = useHistory();
-    const url = "/bookshelf/detail/id";
+  const history = useHistory();
+  const url = "/bookshelf/detail/id";
 
-    const clickHandler = () => {
-      history.push(url);
-    };
+  const clickHandler = () => {
+    history.push(url);
+  };
 
-    var styleRules = {position: 'block', float: 'left', width: '300px', height: '500px', margin: '100px'};
+  var styleRules = { position: 'block', float: 'left', width: '330px', height: '550px', margin: '100px' };
 
-    if (size === "small") {
-        styleRules = {position: 'block', float: 'left', width: '150px', height: '250px', margin: '50px'};
-    }
-    return (
-        <Wrapper style={styleRules}>
-            <CardActionArea onClick={clickHandler}>
-                <CardMedia image={imgUrl} title='Book cover' style={{ width: '100%', height: '100%' }} />
-            </CardActionArea>
-        </Wrapper>
-    );
+  if (size === "small") {
+    styleRules = { position: 'block', float: 'left', width: '150px', height: '250px', margin: '50px' };
+  }
+  return (
+    <Wrapper style={styleRules}>
+      <CardActionArea onClick={clickHandler}>
+        <CardMedia image={imgUrl} title='Book cover' style={{ width: '100%', height: '100%' }} />
+      </CardActionArea>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled(Card)`
