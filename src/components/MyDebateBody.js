@@ -1,10 +1,13 @@
 import React from 'react';
 import moment from 'moment';
-import { Grid, Typography, Divider } from '@material-ui/core';
+import { useHistory, useParams } from 'react-router-dom';
+import { Grid, Typography, Divider, ButtonGroup, Button } from '@material-ui/core';
 import styled from 'styled-components';
 import SessionHeaderCommon from './SessionHeaderCommon';
 
 const MyDebateBody = ({ info }) => {
+  const history = useHistory();
+  const { id } = useParams();
   const {
     bookInfo: { dateTime: publshDate, authors, thumbnail, publisher, title: bookTitle },
     title,
@@ -14,7 +17,18 @@ const MyDebateBody = ({ info }) => {
     host,
     participants,
     likes,
+    zoomUrl,
   } = info;
+  const goDetailPage = () => {
+    history.push(`/session/detail/${id}`);
+  };
+  const startMeeting = () => {
+    if (!zoomUrl.startsWith('http')) window.open(`http://${zoomUrl}`, '_blank');
+    else window.open(zoomUrl, '_blank');
+  };
+  const goSharboard = () => {
+    history.push(`/shareboard/${id}/ongoing`);
+  };
 
   return (
     <>
@@ -69,6 +83,14 @@ const MyDebateBody = ({ info }) => {
           </BookinfoWrapper>
         </GridStyled>
       </Grid>
+      <Divider style={{ margin: '10px 0 40px' }} />
+      <ButtonGruopStyled variant='text' fullWidth size='large'>
+        <Button onClick={goSharboard}>Shareboard</Button>
+        <Button onClick={startMeeting} disabled={moment(nextDebate).diff(moment(), 'minutes') > 30}>
+          Start debate
+        </Button>
+        <Button onClick={goDetailPage}>More detail</Button>
+      </ButtonGruopStyled>
     </>
   );
 };
@@ -120,6 +142,13 @@ const BookinfoWrapper = styled.div`
 const ParticipantsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const ButtonGruopStyled = styled(ButtonGroup)`
+  button {
+    font-size: 1.1rem;
+    text-transform: none;
+  }
 `;
 
 export default MyDebateBody;
