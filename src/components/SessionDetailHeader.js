@@ -21,9 +21,9 @@ const SessionDetailHeader = ({ info }) => {
         <BookinfoWrapper>
           <Typography style={{ marginBottom: '15px' }}>
             <IconWithMargin icon={faCalendar} size='1x' />
-            {moment(dateTime).format('mm/DD, HH:MM')}
+            {moment(dateTime).format('MM/DD, HH:MM')}
             <IconWithMargin icon={faUsers} size='1x' />
-            {participants.length} members
+            {participants.length + 1} member{participants.length + 1 > 1 && <span>s</span>}
           </Typography>
         </BookinfoWrapper>
       </GridStyled>

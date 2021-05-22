@@ -30,7 +30,7 @@ const BookclubCard = ({ info, url }) => {
               <GenreTag color={genres.find((el) => el.genre === genre).color || ''}>#{genre}</GenreTag>
             )}
             <Typography>
-              Currently {participants.length} {participants.length <= 1 ? 'person' : 'people'} joined
+              Currently {participants.length + 1} {participants.length + 1 <= 1 ? 'person' : 'people'} joined
             </Typography>
           </Footer>
         </CardContentStyled>
