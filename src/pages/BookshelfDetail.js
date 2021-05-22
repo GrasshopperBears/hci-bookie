@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import BookshelfTabs from '../components/BookshelfTab';
 import BookshelfCard from '../components/BookshelfCard';
 import BookshelfTitle from '../components/BookshelfTitle';
+import Grid from '@material-ui/core/Grid';
 
 const BookshelfDetail = () => {
   const title = "Think Again: The Power of Knowing What You Don’t Know";
@@ -17,13 +18,15 @@ const BookshelfDetail = () => {
 
   return (
 
-    <BookshelfWrapper>
+    <Grid container direction="column">
 
       <BookshelfTitle />
-      <BookshelfCard imgUrl={imgUrl} />
-      <BookshelfTabs title={title} author={author} publisher={publisher} release={release} genre={genre} review1={review1} review2={review2} comment={comment}>
-      </BookshelfTabs>
-    </BookshelfWrapper>
+      <Grid container direction="row">
+        <BookshelfCard imgUrl={imgUrl} />
+        <BookshelfTabs title={title} author={author} publisher={publisher} release={release} genre={genre} review1={review1} review2={review2} comment={comment}>
+        </BookshelfTabs>
+      </Grid>
+    </Grid>
   );
 };
 
