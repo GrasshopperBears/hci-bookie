@@ -28,6 +28,16 @@ const BookshelfTitle = ({ name, clickHandler, followers }) => {
             displayName: currentUser.displayName,
           }),
         });
+      await firebase
+        .firestore()
+        .collection('bookshelf')
+        .doc(currentUser.uid)
+        .update({
+          following: firebase.firestore.FieldValue.arrayRemove({
+            uid: id,
+            displayName: name,
+          }),
+        });
     } else {
       await firebase
         .firestore()
@@ -37,6 +47,16 @@ const BookshelfTitle = ({ name, clickHandler, followers }) => {
           followers: firebase.firestore.FieldValue.arrayUnion({
             uid: currentUser.uid,
             displayName: currentUser.displayName,
+          }),
+        });
+      await firebase
+        .firestore()
+        .collection('bookshelf')
+        .doc(currentUser.uid)
+        .update({
+          following: firebase.firestore.FieldValue.arrayUnion({
+            uid: id,
+            displayName: name,
           }),
         });
     }
