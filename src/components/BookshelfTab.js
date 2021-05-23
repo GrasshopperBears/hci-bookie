@@ -11,7 +11,7 @@ function TabPanel(props) {
   return (
     <div
       role='tabpanel'
-      display={value !== index && 'none'}
+      style={{ display: value !== index && 'none' }}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
