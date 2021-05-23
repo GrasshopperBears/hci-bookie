@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Card, CardActionArea, Typography, Dialog } from '@material-ui/core';
+import { Card, CardActionArea, Typography } from '@material-ui/core';
 import BookshelfCard from '../components/BookshelfCard';
 import BookshelfTitle from '../components/BookshelfTitle';
 import Grid from '@material-ui/core/Grid';
@@ -15,15 +15,7 @@ const BookshelfMain = () => {
   const [bestBook, setBestBook] = useState(undefined);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-  const [showDialog, setShowDialog] = useState(false);
-  const [dialogInfo, setDialogInfo] = useState({ title: '', list: [] });
 
-  const openDialog = () => {
-    setShowDialog(true);
-  };
-  const closeDialog = () => {
-    setShowDialog(false);
-  };
   const goAddPage = () => {
     history.push('/bookshelf/add');
   };
