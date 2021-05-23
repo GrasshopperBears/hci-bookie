@@ -85,16 +85,36 @@ const MyDebateBody = ({ info }) => {
               </UserInfoWrapper>
             </ParticipantsWrapper>
           </BookinfoWrapper>
+          <Divider style={{ margin: '30px 0 50px 0' }} />
         </GridStyled>
+
       </Grid>
-      <Divider style={{ margin: '30px 0 0 0' }} />
-      <ButtonGruopStyled variant='text' fullWidth size='large'>
-        <Button onClick={goSharboard}>Shareboard</Button>
-        <Button onClick={startMeeting} disabled={moment(nextDebate).diff(moment(), 'minutes') > 30}>
+
+      <Grid container spacing={10} alignItems='center' direction='row' justify='center'>
+
+        <Button
+          variant='contained'
+          onClick={goSharboard}
+          style={{ color: '#FFFFFF', margin: '0 10px 100px 10px', padding: '5px 50px 5px 50px' }}
+        >
+          Share board
+        </Button>
+        <Button
+          variant='contained'
+          onClick={startMeeting}
+          style={{ color: '#FFFFFF', margin: '0 10px 100px 10px', padding: '5px 50px 5px 50px' }}
+          disabled={moment(nextDebate).diff(moment(), 'minutes') > 30}
+        >
           Start debate
         </Button>
-        <Button onClick={goDetailPage}>More detail</Button>
-      </ButtonGruopStyled>
+        <Button
+          variant='contained'
+          onClick={goDetailPage}
+          style={{ color: '#FFFFFF', margin: '0 10px 100px 10px', padding: '5px 50px 5px 50px' }}
+        >
+          More detail
+        </Button>
+      </Grid>
     </>
   );
 };

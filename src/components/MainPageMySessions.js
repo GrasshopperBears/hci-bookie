@@ -4,11 +4,14 @@ import { Typography, Divider } from '@material-ui/core';
 import SessionCardList from './SessionCardList';
 import MainPageCreateSessionBox from './MainPageCreateSessionBox';
 import moment from 'moment';
+import { makeStyles } from '@material-ui/core/styles';
+const font = "'Russo One', sans-serif";
 
 const db = firebase.firestore();
 
 const MainPageMySessions = () => {
   const [bookList, setBookList] = useState([]);
+  const classes = useStyles();
 
   const initList = async () => {
     const books = [];
@@ -27,7 +30,7 @@ const MainPageMySessions = () => {
       .where('host.uid', '!=', firebase.auth().currentUser.uid)
       .get();
     participantQuerySnapshot.forEach((doc) => {
-      if (doc.data()['participants'].findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1){
+      if (doc.data()['participants'].findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1) {
         books.push({ id: doc.id, ...doc.data() });
       }
     });
@@ -42,7 +45,7 @@ const MainPageMySessions = () => {
   return (
     bookList.length > 0 && (
       <>
-        <Typography variant='h4' style={{ margin: '25px 0' }}>
+        <Typography variant='h4' className={classes.banner}>
           My debates
         </Typography>
         <SessionCardList bookList={bookList} extra={<MainPageCreateSessionBox />} url='/my-debate' />
@@ -51,5 +54,13 @@ const MainPageMySessions = () => {
     )
   );
 };
+const useStyles = makeStyles({
 
+  banner: {
+    color: '#000000',
+    fontFamily: font,
+    fontSize: '1.6rem',
+    margin: '25px 0'
+  },
+});
 export default MainPageMySessions;

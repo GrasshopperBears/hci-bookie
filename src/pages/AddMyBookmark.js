@@ -4,12 +4,16 @@ import { TextField, Typography, FormControl, Button } from '@material-ui/core';
 import EnterBookInformation from '../components/EnterBookInformation';
 import firebase from '../firebase-config';
 import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+const font = "'Russo One', sans-serif";
 
 const AddMyBookmark = () => {
   const history = useHistory();
   const [bookInfo, setBookInfo] = useState(undefined);
   const comment = useRef(undefined);
   const review = useRef(undefined);
+  const classes = useStyles();
+
   // bookInfo 는 객체 형식으로 title, author, publisher ... 등등의 정보를 포함함.
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -33,7 +37,7 @@ const AddMyBookmark = () => {
 
   return (
     <>
-      <Typography variant='h2'>Add New Book</Typography>
+      <Typography className={classes.banner}>Add New Book</Typography>
       <form onSubmit={submitHandler}>
         <EnterBookInformation bookInfo={bookInfo} setBookInfo={setBookInfo} />
         <FormControl fullWidth margin='normal'>
@@ -71,5 +75,13 @@ const AddMyBookmark = () => {
     </>
   );
 };
+const useStyles = makeStyles({
 
+  banner: {
+    color: '#000000',
+    fontFamily: font,
+    fontSize: '1.6rem',
+    margin: '25px 0'
+  },
+});
 export default AddMyBookmark;

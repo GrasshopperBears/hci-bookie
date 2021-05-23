@@ -5,6 +5,8 @@ import firebase from '../firebase-config';
 import CeterDiv from '../components/CenterDiv';
 import EnterBookInformation from '../components/EnterBookInformation';
 import genres from '../genres';
+import { makeStyles } from '@material-ui/core/styles';
+
 import {
   Typography,
   FormControl,
@@ -21,6 +23,7 @@ import {
 import { BiChevronDown } from 'react-icons/bi';
 import styled from 'styled-components';
 
+const font = "'Russo One', sans-serif";
 const CreateSession = () => {
   const history = useHistory();
   const [bookInfo, setBookInfo] = useState(undefined);
@@ -34,6 +37,8 @@ const CreateSession = () => {
   const zoomUrl = useRef(undefined);
   const content = useRef(undefined);
   const selectGenreBtn = useRef(undefined);
+  const classes = useStyles();
+
 
   const radioClickhandler = (e) => {
     setIsRepeating(e.target.value === 'true');
@@ -78,7 +83,7 @@ const CreateSession = () => {
 
   return (
     <Wrapper>
-      <Typography variant='h2'>Create session</Typography>
+      <Typography className={classes.banner}>Create session</Typography>
       <form onSubmit={submitHandler}>
         <FormControl fullWidth margin='normal'>
           <TextField
@@ -238,5 +243,13 @@ const RadioGroupStyled = styled(RadioGroup)`
 const GenreButton = styled(Button)`
   justify-content: flex-start !important;
 `;
+const useStyles = makeStyles({
 
+  banner: {
+    color: '#000000',
+    fontFamily: font,
+    fontSize: '1.6rem',
+    margin: '25px 0 0 0'
+  },
+});
 export default CreateSession;
