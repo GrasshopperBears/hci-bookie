@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Card, CardActionArea, Typography } from '@material-ui/core';
+import { Card, CardActionArea, Typography, Dialog } from '@material-ui/core';
 import BookshelfCard from '../components/BookshelfCard';
 import BookshelfTitle from '../components/BookshelfTitle';
 import Grid from '@material-ui/core/Grid';
@@ -14,6 +14,16 @@ const BookshelfMain = () => {
   const [bookmarks, setBookmarks] = useState([]);
   const [bestBook, setBestBook] = useState(undefined);
   const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogInfo, setDialogInfo] = useState({ title: '', list: [] });
+
+  const openDialog = () => {
+    setShowDialog(true);
+  };
+  const closeDialog = () => {
+    setShowDialog(false);
+  };
   const goAddPage = () => {
     history.push('/bookshelf/add');
   };
@@ -26,6 +36,7 @@ const BookshelfMain = () => {
     setBookmarks(hostQuerySnapshot.data().bookmarks);
     setBestBook(hostQuerySnapshot.data().bestBook);
     setFollowers(hostQuerySnapshot.data().followers);
+    setFollowing(hostQuerySnapshot.data().following);
   };
 
   useEffect(() => {
@@ -34,7 +45,12 @@ const BookshelfMain = () => {
 
   return (
     <>
-      {id !== firebase.auth().currentUser.uid && <BookshelfTitle name={userName} followers={followers} />}
+      <BookshelfTitle
+        name={userName}
+        followers={followers}
+        following={following}
+        showFollow={id !== firebase.auth().currentUser.uid}
+      />
       <Grid container direction='row' style={{ height: '75vh', marginTop: '5vh' }}>
         <BestBookGrid item lg={5} md={12}>
           <Grid container justify='center'>
