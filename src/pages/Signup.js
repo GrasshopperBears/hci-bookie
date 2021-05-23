@@ -14,7 +14,11 @@ const Signup = () => {
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
       await firebase.auth().signInWithPopup(provider);
       const { uid, displayName } = firebase.auth().currentUser;
-      await firebase.firestore().collection('bookshelf').doc(uid).set({ displayName, bookmarks: [] });
+      await firebase
+        .firestore()
+        .collection('bookshelf')
+        .doc(uid)
+        .set({ displayName, bookmarks: [], followers: [] });
       window.location.href = '/';
     } catch (e) {
       // const errorCode = e.code;

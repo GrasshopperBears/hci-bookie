@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Card, CardActionArea, Typography } from '@material-ui/core';
+import { Card, CardActionArea, Typography, Dialog } from '@material-ui/core';
 import BookshelfCard from '../components/BookshelfCard';
 import BookshelfTitle from '../components/BookshelfTitle';
 import Grid from '@material-ui/core/Grid';
@@ -13,25 +13,38 @@ const BookshelfMain = () => {
   const [userName, setUserName] = useState('');
   const [bookmarks, setBookmarks] = useState([]);
   const [bestBook, setBestBook] = useState(undefined);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogInfo, setDialogInfo] = useState({ title: '', list: [] });
+
+  const openDialog = () => {
+    setShowDialog(true);
+  };
+  const closeDialog = () => {
+    setShowDialog(false);
+  };
   const goAddPage = () => {
     history.push('/bookshelf/add');
   };
-  
+
   const fetchBookshelf = async () => {
     const hostQuerySnapshot = await firebase.firestore().collection('bookshelf').doc(id).get();
     // eslint-disable-next-line no-restricted-globals
     // if (!hostQuerySnapshot.exists) return location.reload();
     if (!hostQuerySnapshot.exists) {
-      alert("Sign UP first!");
+      alert('Sign UP first!');
       history.push('/signup');
     } else {
       if (hostQuerySnapshot.data().bookmarks.length == 0) {
-        alert("GO GO! ADD YOUR BOOK FIRST");
+        alert('GO GO! ADD YOUR BOOK FIRST');
         goAddPage();
       }
       setUserName(hostQuerySnapshot.data().displayName);
       setBookmarks(hostQuerySnapshot.data().bookmarks);
       setBestBook(hostQuerySnapshot.data().bestBook);
+      setFollowers(hostQuerySnapshot.data().followers);
+      setFollowing(hostQuerySnapshot.data().following);
     }
   };
 
@@ -41,7 +54,12 @@ const BookshelfMain = () => {
 
   return (
     <>
-      <BookshelfTitle name={userName} />
+      <BookshelfTitle
+        name={userName}
+        followers={followers}
+        following={following}
+        showFollow={id !== firebase.auth().currentUser.uid}
+      />
       <Grid container direction='row' style={{ height: '75vh', marginTop: '5vh' }}>
         <BestBookGrid item lg={5} md={12}>
           <Grid container justify='center'>
