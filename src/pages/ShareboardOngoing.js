@@ -20,20 +20,20 @@ const ShareboardOngoing = () => {
     {
       title : 'My Funny Life',
       writer : 1,
-      summary : 'Summary 1',
-      essay: 'Essay 1'
+      summary : 'This is Summary.',
+      essay: 'This is Essay.'
     },
     {
       title : 'Family Day',
       writer : 3,
-      summary : 'Summary 2',
-      essay: 'Essay 2'
+      summary : 'This is Summary 2.',
+      essay: 'This is Essay 2.'
     },
     {
       title : 'Our Hope',
       writer : 2,
-      summary : 'Summary 3',
-      essay: 'Essay 3'
+      summary : 'This is Summary 3.',
+      essay: 'This is Essay 3.'
     }
   ]
 
@@ -86,7 +86,8 @@ const ShareboardOngoing = () => {
           </List>
         </Grid>
         <Grid direction='column' xs={6}>
-          <ShareboardEssay index={selectedIndex} essay_info={essayList[selectedIndex]}/>
+          <ShareboardEssay index={selectedIndex} essay_info={essayList[selectedIndex]} 
+            userList={userList}/>
         </Grid>
       </Grid>
     </Grid>
