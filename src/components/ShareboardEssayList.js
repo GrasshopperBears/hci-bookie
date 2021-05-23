@@ -14,12 +14,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const OngoingEssayList = ({ essayList }) => {
+const ShareboardEssayList = ({ essayList, onEssay }) => {
+
+  const clickHandler = (index) => {
+    onEssay(index);
+  }
+
   return (
     <div>
       <List>
-        {essayList.map((essay) => (
-          <ListItem button>
+        {essayList.map((essay, index) => (
+          <ListItem button onClick={clickHandler(index)}>
             <EssayTab essay={essay}></EssayTab>
           </ListItem>
         ))}
@@ -28,4 +33,4 @@ const OngoingEssayList = ({ essayList }) => {
   )
 }
 
-export default OngoingEssayList;
+export default ShareboardEssayList;

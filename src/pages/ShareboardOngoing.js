@@ -1,6 +1,6 @@
 import React from 'react';
 import Divider from '@material-ui/core/Divider';
-import OngoingEssayList from '../components/OngoingEssayList'
+import ShareboardEssayList from '../components/ShareboardEssayList'
 import ShareboardUserList from '../components/ShareboardUserList'
 import { Grid } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,6 +8,10 @@ import styled from 'styled-components';
 import HistoryIcon from '@material-ui/icons/History';
 import { useHistory } from 'react-router';
 import { makeStyles } from "@material-ui/core/styles";
+import ShareboardEssay from '../components/ShareboardEssay'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import EssayTab from '../components/EssayTab'
 
 
 
@@ -15,15 +19,21 @@ const ShareboardOngoing = () => {
   const essayList = [
     {
       title : 'My Funny Life',
-      writer : '이상현'
+      writer : '이상현',
+      summary : 'Summary 1',
+      essay: 'Essay 1'
     },
     {
       title : 'Family Day',
-      writer : '황영주'
+      writer : '황영주',
+      summary : 'Summary 2',
+      essay: 'Essay 2'
     },
     {
       title : 'Our Hope',
-      writer : '이진우'
+      writer : '이진우',
+      summary : 'Summary 3',
+      essay: 'Essay 3'
     }
   ]
 
@@ -33,6 +43,12 @@ const ShareboardOngoing = () => {
     '이진우',
     '강건희'
   ]
+
+  const [selectedIndex, setSelectedIndex] = React.useState(-1);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
 
   const classes = useStyles();
   const history = useHistory();
@@ -57,10 +73,17 @@ const ShareboardOngoing = () => {
             </IconButton>
           </Grid>
           <Divider/>
-          <OngoingEssayList essayList={essayList} />
+          <List>
+            {essayList.map((essay, index) => (
+              <ListItem button selected={selectedIndex === index}
+                onClick={(event) => handleListItemClick(event, index)}>
+                <EssayTab essay={essay}></EssayTab>
+              </ListItem>
+            ))}
+          </List>
         </Grid>
         <Grid direction='column' xs={6}>
-          <div>EssayPreview</div>
+          <ShareboardEssay index={selectedIndex} essay_info={essayList[selectedIndex]}/>
         </Grid>
       </Grid>
     </Grid>
