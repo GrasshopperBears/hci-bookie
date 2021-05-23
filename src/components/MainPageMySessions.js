@@ -25,7 +25,7 @@ const MainPageMySessions = () => {
     const participantQuerySnapshot = await db
       .collection('sessions')
       .where('dateTime', '>=', moment().format('YYYY-MM-DDTHH:MM'))
-      .where('participants', 'array-contains', firebase.auth().currentUser.uid)
+      .where('participants.uid', 'array-contains', firebase.auth().currentUser.uid)
       .orderBy('dateTime')
       .get();
     participantQuerySnapshot.forEach((doc) => {
