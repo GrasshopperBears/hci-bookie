@@ -53,7 +53,7 @@ const CreateSession = () => {
     e.preventDefault();
     if (!bookInfo) return alert('Please enter book information');
     const currentUser = firebase.auth().currentUser;
-    const result = await firebase
+    await firebase
       .firestore()
       .collection('sessions')
       .add({
@@ -74,7 +74,6 @@ const CreateSession = () => {
         genre,
         likes: [],
       });
-    history.push(`/session/detail/${result.id}`);
   };
 
   return (
