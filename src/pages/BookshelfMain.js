@@ -13,6 +13,7 @@ const BookshelfMain = () => {
   const [userName, setUserName] = useState('');
   const [bookmarks, setBookmarks] = useState([]);
   const [bestBook, setBestBook] = useState(undefined);
+  const [followers, setFollowers] = useState([]);
   const goAddPage = () => {
     history.push('/bookshelf/add');
   };
@@ -24,6 +25,7 @@ const BookshelfMain = () => {
     setUserName(hostQuerySnapshot.data().displayName);
     setBookmarks(hostQuerySnapshot.data().bookmarks);
     setBestBook(hostQuerySnapshot.data().bestBook);
+    setFollowers(hostQuerySnapshot.data().followers);
   };
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const BookshelfMain = () => {
 
   return (
     <>
-      <BookshelfTitle name={userName} />
+      {id !== firebase.auth().currentUser.uid && <BookshelfTitle name={userName} followers={followers} />}
       <Grid container direction='row' style={{ height: '75vh', marginTop: '5vh' }}>
         <BestBookGrid item lg={5} md={12}>
           <Grid container justify='center'>
