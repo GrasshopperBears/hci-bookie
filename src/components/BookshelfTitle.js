@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import firebase from '../firebase-config';
 
-const BookshelfTitle = ({ name, clickHandler, followers, following, showFollow }) => {
+const BookshelfTitle = ({ name, clickHandler, followers, following, showFollow, onChange, hideFollow }) => {
   const history = useHistory();
   const classes = useStyles();
   const { id } = useParams();
@@ -36,13 +36,12 @@ const BookshelfTitle = ({ name, clickHandler, followers, following, showFollow }
   const closeDialog = () => {
     setShowDialog(false);
   };
-
   useEffect(() => {
-    if (followers.length) setFollowingNow(followers.findIndex((el) => el.uid === currentUser?.uid) >= 0);
+    if (!hideFollow) setFollowingNow(followers.findIndex((el) => el.uid === currentUser?.uid) >= 0);
   }, [followers, currentUser]);
 
   const followHandler = async () => {
-    if (following) {
+    if (followingNow) {
       await firebase
         .firestore()
         .collection('bookshelf')
@@ -85,7 +84,8 @@ const BookshelfTitle = ({ name, clickHandler, followers, following, showFollow }
           }),
         });
     }
-    setFollowingNow(!followingNow);
+    // setFollowingNow(!followingNow);
+    onChange();
   };
 
   return (
@@ -96,19 +96,23 @@ const BookshelfTitle = ({ name, clickHandler, followers, following, showFollow }
           if (clickHandler) clickHandler();
         }}
       >
-        <Typography className={classes.title}>{name}'s Bookshelf</Typography>
+        <Typography className={classes.title}>{name ? name : 'Anonymous'}'s Bookshelf</Typography>
       </CardActionArea>
-      {showFollow && (
-        <FollowButton onClick={followHandler} size='medium' variant='contained'>
-          {followingNow ? 'Unfollow' : 'Follow'}
-        </FollowButton>
+      {!hideFollow && name && (
+        <>
+          {showFollow && (
+            <FollowButton onClick={followHandler} size='medium' variant='contained'>
+              {followingNow ? 'Unfollow' : 'Follow'}
+            </FollowButton>
+          )}
+          <FollowButton size='small' onClick={openFollowers}>
+            {followers.length} Followers
+          </FollowButton>
+          <FollowButton size='small' onClick={openFollowing}>
+            {following.length} Following
+          </FollowButton>
+        </>
       )}
-      <FollowButton size='small' onClick={openFollowers}>
-        {followers.length} Followers
-      </FollowButton>
-      <FollowButton size='small' onClick={openFollowing}>
-        {following.length} Following
-      </FollowButton>
       <Dialog open={showDialog} onClose={closeDialog} maxWidth='xs' fullWidth>
         <DialogTitle>{dialogInfo.title}</DialogTitle>
         <List>

@@ -19,6 +19,7 @@ const BookshelfDetail = () => {
         clickHandler={() => {
           history.goBack();
         }}
+        hideFollow
       />
       <Grid container direction='row'>
         <Grid item lg={4}>

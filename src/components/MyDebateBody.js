@@ -34,64 +34,66 @@ const MyDebateBody = ({ info }) => {
     <>
       <SessionHeaderCommon title={title} likes={likes} />
       <Grid container spacing={10}>
-        <GridStyled item xs={4} justify='center' alignItems='center'>
-          <BookCover src={thumbnail} alt='book cover' />
+        <GridStyled item xs={4}>
+          <Grid container justify='center' alignItems='center'>
+            <BookCover src={thumbnail} alt='book cover' />
+          </Grid>
         </GridStyled>
-        <GridStyled item xs={8} direction='column' justify='center'>
-          <Typography style={{ fontSize: '30px', fontWeight: '600', marginBottom: '15px' }}>
-            {bookTitle}
-          </Typography>
-          <BookinfoWrapper>
-            <GreyText>Author . {authors.join(', ')}</GreyText>
-            <Divider light='true' orientation='vertical' variant='middle' />
-            <GreyText>Publisher . {publisher}</GreyText>
-            <Divider light='true' orientation='vertical' variant='middle' />
-            <GreyText>Publish date . {publshDate}</GreyText>
-          </BookinfoWrapper>
-          <Divider variant='middle' style={{ margin: '20px 0' }} />
-          <BookinfoWrapper style={{ margin: '10px 0 30px' }}>
-            <Typography style={{ marginRight: '30px' }}>#{genre}</Typography>
-            {/* {tags.map((el) => (
+        <GridStyled item xs={8}>
+          <Grid container direction='column' justify='center'>
+            <Typography style={{ fontSize: '30px', fontWeight: '600', marginBottom: '15px' }}>
+              {bookTitle}
+            </Typography>
+            <BookinfoWrapper>
+              <GreyText>Author . {authors.join(', ')}</GreyText>
+              <Divider light orientation='vertical' variant='middle' />
+              <GreyText>Publisher . {publisher}</GreyText>
+              <Divider light orientation='vertical' variant='middle' />
+              <GreyText>Publish date . {publshDate}</GreyText>
+            </BookinfoWrapper>
+            <Divider variant='middle' style={{ margin: '20px 0' }} />
+            <BookinfoWrapper style={{ margin: '10px 0 30px' }}>
+              <Typography style={{ marginRight: '30px' }}>#{genre}</Typography>
+              {/* {tags.map((el) => (
             <Typography style={{ marginRight: '30px' }}>#{el}</Typography>
           ))} */}
-          </BookinfoWrapper>
-          {lastDebate && (
-            <BookinfoWrapper style={{ marginBottom: '7px' }}>
-              <Typography>Last debate</Typography>
-              <Divider light='true' orientation='vertical' variant='middle' />
-              {moment(lastDebate).format('MMMM Do, H:mm')}
             </BookinfoWrapper>
-          )}
-          {nextDebate && (
-            <BookinfoWrapper style={{ marginBottom: '40px' }}>
-              <GreyText>Next debate</GreyText>
-              <Divider light='true' orientation='vertical' variant='middle' />
-              {moment(nextDebate).format('MMMM Do, H:mm')}
-            </BookinfoWrapper>
-          )}
+            {lastDebate && (
+              <BookinfoWrapper style={{ marginBottom: '7px' }}>
+                <Typography>Last debate</Typography>
+                <Divider light orientation='vertical' variant='middle' />
+                {moment(lastDebate).format('MMMM Do, H:mm')}
+              </BookinfoWrapper>
+            )}
+            {nextDebate && (
+              <BookinfoWrapper style={{ marginBottom: '40px' }}>
+                <GreyText>Next debate</GreyText>
+                <Divider light orientation='vertical' variant='middle' />
+                {moment(nextDebate).format('MMMM Do, H:mm')}
+              </BookinfoWrapper>
+            )}
 
-          <Divider variant='middle' style={{ margin: '-10px 0 20px 0' }} />
-          <BookinfoWrapper>
-            <ParticipantsWrapper style={{ width: '30%' }}>
-              <GreyText>Host</GreyText>
-              <UserInfo info={host} />
-            </ParticipantsWrapper>
-            <ParticipantsWrapper style={{ width: '70%' }}>
-              <GreyText>Participants</GreyText>
-              <UserInfoWrapper>
-                {participants.map((el) => (
-                  <UserInfo key={el.uid} info={el} />
-                ))}
-              </UserInfoWrapper>
-            </ParticipantsWrapper>
-          </BookinfoWrapper>
-          <Divider style={{ margin: '30px 0 50px 0' }} />
+            <Divider variant='middle' style={{ margin: '-10px 0 20px 0' }} />
+            <BookinfoWrapper>
+              <ParticipantsWrapper style={{ width: '30%' }}>
+                <GreyText>Host</GreyText>
+                <UserInfo info={host} />
+              </ParticipantsWrapper>
+              <ParticipantsWrapper style={{ width: '70%' }}>
+                <GreyText>Participants</GreyText>
+                <UserInfoWrapper>
+                  {participants.map((el) => (
+                    <UserInfo key={el.uid} info={el} />
+                  ))}
+                </UserInfoWrapper>
+              </ParticipantsWrapper>
+            </BookinfoWrapper>
+            <Divider style={{ margin: '30px 0 50px 0' }} />
+          </Grid>
         </GridStyled>
-
       </Grid>
 
       <Grid container spacing={10} alignItems='center' direction='row' justify='center'>
-
         <Button
           variant='contained'
           onClick={goSharboard}
@@ -154,7 +156,7 @@ const InfoWrapper = styled.div`
   }
 `;
 const GreyText = styled(Typography)`
-  color: grey
+  color: grey;
 `;
 
 const ProfileImg = styled.img`

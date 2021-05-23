@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { Grid, Typography } from '@material-ui/core';
+import { Avatar, Grid, Typography } from '@material-ui/core';
 
 const UserInformation = ({ isHost, info }) => {
   const { profileImg, displayName, quote, uid } = info;
@@ -27,9 +27,9 @@ const UserInformation = ({ isHost, info }) => {
         </Typography>
       </Grid>
       <Grid item>
-        <ProfileImg
+        <Avatar
           src={profileImg || process.env.PUBLIC_URL + '/default-profile.png'}
-          style={{ margin: '10px 20px 10px 0' }}
+          style={{ margin: '5px 20px 5px 0' }}
           alt='book cover'
         />
       </Grid>

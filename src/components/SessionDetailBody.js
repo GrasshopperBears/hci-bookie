@@ -17,16 +17,15 @@ const SessionDetailBody = ({ info }) => {
     content,
     // likes,
     participants,
-    host: { displayName: hostName, uid: hostUid },
+    host,
   } = info;
 
   const [hideApply, setHideApply] = useState(
     !firebase.auth().currentUser ||
-    hostUid === firebase.auth().currentUser.uid ||
-    participants.findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1,
+      host.uid === firebase.auth().currentUser.uid ||
+      participants.findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1,
   );
   const history = useHistory();
-  const hostInfo = { name: hostName };
 
   const button_shareboard = () => {
     history.push('/shareboard/asd/add');
@@ -99,7 +98,7 @@ const SessionDetailBody = ({ info }) => {
         >
           Current participant
         </Typography>
-        <UserInformation isHost info={hostInfo} />
+        <UserInformation isHost info={host} />
         {participants.map((p) => (
           <UserInformation key={p.uid} info={p} />
         ))}
