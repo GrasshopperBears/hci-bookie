@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import firebase from '../firebase-config';
 import CeterDiv from '../components/CenterDiv';
@@ -21,6 +22,7 @@ import { BiChevronDown } from 'react-icons/bi';
 import styled from 'styled-components';
 
 const CreateSession = () => {
+  const history = useHistory();
   const [bookInfo, setBookInfo] = useState(undefined);
   const [isRepeating, setIsRepeating] = useState(false);
   const [showGenres, setShowGenres] = useState(false);
@@ -51,7 +53,7 @@ const CreateSession = () => {
     e.preventDefault();
     if (!bookInfo) return alert('Please enter book information');
     const currentUser = firebase.auth().currentUser;
-    await firebase
+    const result = await firebase
       .firestore()
       .collection('sessions')
       .add({
@@ -72,6 +74,7 @@ const CreateSession = () => {
         genre,
         likes: [],
       });
+    history.push(`/session/detail/${result.id}`);
   };
 
   return (

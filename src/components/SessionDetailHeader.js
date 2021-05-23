@@ -10,16 +10,17 @@ const font = "'Russo One', sans-serif";
 
 const SessionDetailHeader = ({ info }) => {
   const { title, likes, dateTime, participants } = info;
-  const classes = useStyles();
 
   return (
     <Grid container spacing={1}>
       <SessionHeaderCommon title={title} likes={likes} />
       <GridStyled container item xs={12} direction='column' alignItems='center' justify='flex-start'>
         <BookinfoWrapper>
-          <Typography variant='h6' style={{ marginBottom: '15px' }}>
-            {moment(dateTime).diff(moment(), 'days')} days left to enroll!
-          </Typography>
+          {moment(dateTime).diff(moment(), 'days') > 0 && (
+            <Typography variant='h6' style={{ marginBottom: '15px' }}>
+              {moment(dateTime).diff(moment(), 'days')} days left to enroll!
+            </Typography>
+          )}
         </BookinfoWrapper>
         <BookinfoWrapper>
           <Typography style={{ marginBottom: '15px' }}>
