@@ -20,7 +20,7 @@ const MyDebateDetail = () => {
   }, [id]);
 
   return bookInfo ? (
-    <div>
+    <div style={{ marginBottom: '50px' }}>
       <MyDebateBody info={bookInfo} />
     </div>
   ) : (

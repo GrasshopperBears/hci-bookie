@@ -33,7 +33,7 @@ const MyDebateBody = ({ info }) => {
   return (
     <>
       <SessionHeaderCommon title={title} likes={likes} />
-      <Grid container spacing={10} style={{ height: '450px' }}>
+      <Grid container spacing={10}>
         <GridStyled item xs={4} justify='center' alignItems='center'>
           <BookCover src={thumbnail} alt='book cover' />
         </GridStyled>
@@ -76,9 +76,11 @@ const MyDebateBody = ({ info }) => {
             </ParticipantsWrapper>
             <ParticipantsWrapper style={{ width: '70%' }}>
               <Typography variant='body2'>Participants</Typography>
-              {participants.map((el) => (
-                <UserInfo key={el.uid} info={el} />
-              ))}
+              <UserInfoWrapper>
+                {participants.map((el) => (
+                  <UserInfo key={el.uid} info={el} />
+                ))}
+              </UserInfoWrapper>
             </ParticipantsWrapper>
           </BookinfoWrapper>
         </GridStyled>
@@ -156,6 +158,12 @@ const BookinfoWrapper = styled.div`
 const ParticipantsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const UserInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const ButtonGruopStyled = styled(ButtonGroup)`
