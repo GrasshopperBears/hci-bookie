@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
-const EssayTab = ({essay}) => {
+const EssayTab = ({ essay, user, color }) => {
   return (
     <TabWrap style={{backgroundColor: '#ffffff'}}>
       <Grid container direction='row'>
         <Grid xs={1}>
           <svg width="50" height="50" viewbox= "0 0 50 50">
-            <circle cx="25" cy="25" r="15" fill="#888888"/>
+            <circle cx="25" cy="25" r="15" fill={color}/>
           </svg>
         </Grid>
         <Grid xs={8}>
@@ -19,7 +19,7 @@ const EssayTab = ({essay}) => {
         </Grid>
         <Grid xs={3}>
           <EssayWriter>
-            {essay.writer}
+            {user}
           </EssayWriter>
         </Grid>
       </Grid>

@@ -7,13 +7,13 @@ import List from '@material-ui/core/List';
 import GridList from '@material-ui/core/GridList';
 import ShareboardUserTab from './ShareboardUserTab';
 
-const ShareboardUserList = ({userList}) => {
+const ShareboardUserList = ({ userList, colorList }) => {
   return (
     <Wrapper>
       <Grid container direction="row" justify="flex-start" spacing="4">
-        {userList.map((user) => (
+        {userList.map((user, index) => (
           <Grid item button alignItems="center">
-            <ShareboardUserTab name={user} />
+            <ShareboardUserTab name={user} color={colorList[index]} />
           </Grid>
         ))}
       </Grid>

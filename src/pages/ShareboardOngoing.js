@@ -19,23 +19,25 @@ const ShareboardOngoing = () => {
   const essayList = [
     {
       title : 'My Funny Life',
-      writer : '이상현',
+      writer : 1,
       summary : 'Summary 1',
       essay: 'Essay 1'
     },
     {
       title : 'Family Day',
-      writer : '황영주',
+      writer : 3,
       summary : 'Summary 2',
       essay: 'Essay 2'
     },
     {
       title : 'Our Hope',
-      writer : '이진우',
+      writer : 2,
       summary : 'Summary 3',
       essay: 'Essay 3'
     }
   ]
+
+  const colorList = ['#F95047', '#A147F9', '#00C113', '#47B9BA']
 
   const userList = [
     '이상현',
@@ -59,7 +61,7 @@ const ShareboardOngoing = () => {
   return (
     <Grid direction='column'>
       <Grid>
-        <ShareboardUserList userList={userList}></ShareboardUserList>
+        <ShareboardUserList userList={userList} colorList={colorList}></ShareboardUserList>
       </Grid>
       <Divider className={classes.divider} orientation='horizontal'></Divider>
       <Grid container direction='row' xs={12}>
@@ -77,7 +79,8 @@ const ShareboardOngoing = () => {
             {essayList.map((essay, index) => (
               <ListItem button selected={selectedIndex === index}
                 onClick={(event) => handleListItemClick(event, index)}>
-                <EssayTab essay={essay}></EssayTab>
+                <EssayTab essay={essay} user={userList[essay.writer]}
+                  color={colorList[essay.writer]}></EssayTab>
               </ListItem>
             ))}
           </List>

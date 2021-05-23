@@ -11,27 +11,39 @@ const ShareboardEssay = ({ index, essay_info }) => {
   }
   else {
     return (
-      <div>
-        <div>{essay_info.title}</div>
-        <div>{essay_info.writer}</div>
-        <div>{essay_info.summary}</div>
-        <div>{essay_info.essay}</div>
-      </div>
-    );
-  }
+        <div>
+          <EssayWriter>{essay_info.writer}</EssayWriter>
+          <EssayTitle>{essay_info.title}</EssayTitle>
+          <EssaySummary>{essay_info.summary}</EssaySummary>
+          <EssayBody >{essay_info.essay}</EssayBody >
+        </div>
+      );
+      }
   
 };
 
-const TabWrap = styled.div`
-  border: 2px solid lightgray;
-  border-radius: 5px;
-  width: 100%;
-  height: 30px;
-  padding: 5px;
-  align-items: center;
+const EssayWriter = styled.div`
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: left;
 `;
 
-const EssayWriter = styled.div`
+const EssayTitle = styled.div`
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 30px;
+  text-align: center;
+`;
+
+const EssaySummary = styled.div`
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+`;
+
+const EssayBody = styled.div`
   font-size: 20px;
   font-weight: 600;
   line-height: 30px;
