@@ -34,9 +34,10 @@ const BookshelfMain = () => {
     // if (!hostQuerySnapshot.exists) return location.reload();
     if (!hostQuerySnapshot.exists) {
       alert('Sign UP first!');
+      await firebase.auth().signOut();
       history.push('/signup');
     } else {
-      if (hostQuerySnapshot.data().bookmarks.length == 0) {
+      if (hostQuerySnapshot.data().bookmarks.length === 0) {
         alert('GO GO! ADD YOUR BOOK FIRST');
         goAddPage();
       }
