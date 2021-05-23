@@ -34,6 +34,12 @@ const ShareboardOngoing = () => {
       writer : 2,
       summary : 'This is Summary 3.',
       essay: 'This is Essay 3.'
+    },
+    {
+      title : 'TEST TEST',
+      writer : 0,
+      summary : 'This is Test.',
+      essay : 'This is TEST TEST'
     }
   ]
 
