@@ -38,15 +38,15 @@ const MyDebateBody = ({ info }) => {
           <BookCover src={thumbnail} alt='book cover' />
         </GridStyled>
         <GridStyled item xs={8} direction='column' justify='center'>
-          <Typography variant='h4' style={{ marginBottom: '15px' }}>
+          <Typography style={{ fontSize: '30px', fontWeight: '600', marginBottom: '15px' }}>
             {bookTitle}
           </Typography>
           <BookinfoWrapper>
-            <Typography>Author: {authors.join(', ')}</Typography>
+            <GreyText>Author . {authors.join(', ')}</GreyText>
             <Divider light='true' orientation='vertical' variant='middle' />
-            <Typography>Publisher: {publisher}</Typography>
+            <GreyText>Publisher . {publisher}</GreyText>
             <Divider light='true' orientation='vertical' variant='middle' />
-            <Typography>Publish date: {publshDate}</Typography>
+            <GreyText>Publish date . {publshDate}</GreyText>
           </BookinfoWrapper>
           <Divider variant='middle' style={{ margin: '20px 0' }} />
           <BookinfoWrapper style={{ margin: '10px 0 30px' }}>
@@ -64,18 +64,20 @@ const MyDebateBody = ({ info }) => {
           )}
           {nextDebate && (
             <BookinfoWrapper style={{ marginBottom: '40px' }}>
-              <Typography>Next debate</Typography>
+              <GreyText>Next debate</GreyText>
               <Divider light='true' orientation='vertical' variant='middle' />
               {moment(nextDebate).format('MMMM Do, H:mm')}
             </BookinfoWrapper>
           )}
+
+          <Divider variant='middle' style={{ margin: '-10px 0 20px 0' }} />
           <BookinfoWrapper>
             <ParticipantsWrapper style={{ width: '30%' }}>
-              <Typography variant='body2'>Host</Typography>
+              <GreyText>Host</GreyText>
               <UserInfo info={host} />
             </ParticipantsWrapper>
             <ParticipantsWrapper style={{ width: '70%' }}>
-              <Typography variant='body2'>Participants</Typography>
+              <GreyText>Participants</GreyText>
               <UserInfoWrapper>
                 {participants.map((el) => (
                   <UserInfo key={el.uid} info={el} />
@@ -85,7 +87,7 @@ const MyDebateBody = ({ info }) => {
           </BookinfoWrapper>
         </GridStyled>
       </Grid>
-      <Divider style={{ margin: '10px 0 40px' }} />
+      <Divider style={{ margin: '30px 0 0 0' }} />
       <ButtonGruopStyled variant='text' fullWidth size='large'>
         <Button onClick={goSharboard}>Shareboard</Button>
         <Button onClick={startMeeting} disabled={moment(nextDebate).diff(moment(), 'minutes') > 30}>
@@ -131,6 +133,9 @@ const InfoWrapper = styled.div`
     background-color: ${(props) => props.hasUser && 'rgba(30, 30, 30, 0.1)'};
   }
 `;
+const GreyText = styled(Typography)`
+  color: grey
+`;
 
 const ProfileImg = styled.img`
   width: 1.9rem;
@@ -144,7 +149,7 @@ const GridStyled = styled(Grid)`
 `;
 
 const BookCover = styled.img`
-  max-width: 100%;
+  width: 250px;
   max-height: 100%;
 `;
 

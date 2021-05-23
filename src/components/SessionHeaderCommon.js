@@ -60,7 +60,7 @@ const HorizonLine = () => {
         textAlign: 'center',
         borderBottom: '5px solid #EC9F05',
         lineHeight: '0.1em',
-        margin: '10px 0 15px',
+        margin: '0 10px 20px 15px',
       }}
     />
   );
