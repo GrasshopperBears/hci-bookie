@@ -14,11 +14,12 @@ const AddMyBookmark = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!bookInfo) return alert('Please enter book information');
-    if (!firebase.auth().currentUser) return alert('Please add bookmark after sign in');
+    const currentUser = firebase.auth().currentUser;
+    if (!currentUser) return alert('Please add bookmark after sign in');
     await firebase
       .firestore()
       .collection('bookshelf')
-      .doc(firebase.auth().currentUser.uid)
+      .doc(currentUser.uid)
       .update({
         bookmarks: firebase.firestore.FieldValue.arrayUnion({
           bookInfo,
@@ -27,7 +28,7 @@ const AddMyBookmark = () => {
           comments: [],
         }),
       });
-    history.push(`/bookshelf/${firebase.auth().currentUser.uid}`);
+    history.push(`/bookshelf/${currentUser.uid}`);
   };
 
   return (

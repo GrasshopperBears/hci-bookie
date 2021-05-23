@@ -16,14 +16,23 @@ const BookshelfMain = () => {
   const goAddPage = () => {
     history.push('/bookshelf/add');
   };
-
+  
   const fetchBookshelf = async () => {
     const hostQuerySnapshot = await firebase.firestore().collection('bookshelf').doc(id).get();
     // eslint-disable-next-line no-restricted-globals
-    if (!hostQuerySnapshot.exists) return location.reload();
-    setUserName(hostQuerySnapshot.data().displayName);
-    setBookmarks(hostQuerySnapshot.data().bookmarks);
-    setBestBook(hostQuerySnapshot.data().bestBook);
+    // if (!hostQuerySnapshot.exists) return location.reload();
+    if (!hostQuerySnapshot.exists) {
+      alert("Sign UP first!");
+      history.push('/signup');
+    } else {
+      if (hostQuerySnapshot.data().bookmarks.length == 0) {
+        alert("GO GO! ADD YOUR BOOK FIRST");
+        goAddPage();
+      }
+      setUserName(hostQuerySnapshot.data().displayName);
+      setBookmarks(hostQuerySnapshot.data().bookmarks);
+      setBestBook(hostQuerySnapshot.data().bestBook);
+    }
   };
 
   useEffect(() => {

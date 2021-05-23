@@ -24,12 +24,12 @@ const MainPageMySessions = () => {
     });
     const participantQuerySnapshot = await db
       .collection('sessions')
-      .where('dateTime', '>=', moment().format('YYYY-MM-DDTHH:MM'))
-      .where('participants.uid', 'array-contains', firebase.auth().currentUser.uid)
-      .orderBy('dateTime')
+      .where('host.uid', '!=', firebase.auth().currentUser.uid)
       .get();
     participantQuerySnapshot.forEach((doc) => {
-      books.push({ id: doc.id, ...doc.data() });
+      if (doc.data()['participants'].findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1){
+        books.push({ id: doc.id, ...doc.data() });
+      }
     });
     books.sort((a, b) => (a.dateTime > b.dateTime ? 1 : -1));
     setBookList(books);
