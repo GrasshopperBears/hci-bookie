@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const ShareboardEssay = ({ index, essay_info, userList }) => {
-  if (index < 0) {
-    return <Wrapper />;
-  } else {
-    return (
-      <Wrapper>
-        <EssayWriter>{userList[essay_info.writer]}</EssayWriter>
-        <EssayTitle>{essay_info.title}</EssayTitle>
-        <EssaySummaryHead>Summary</EssaySummaryHead>
-        <EssaySummaryBody>{essay_info.summary}</EssaySummaryBody>
-        <EssayHead>Essay</EssayHead>
-        <EssayBody>{essay_info.essay}</EssayBody>
-      </Wrapper>
-    );
-  }
+const ShareboardEssay = ({ info }) => {
+  const [essayInfo, setEssayInfo] = useState(undefined);
+  useEffect(() => {
+    if (info) setEssayInfo(info);
+  }, [info]);
+
+  return essayInfo ? (
+    <Wrapper>
+      <EssayWriter>{essayInfo.displayName}</EssayWriter>
+      <EssayTitle>{essayInfo.title}</EssayTitle>
+      <EssaySummaryHead>Summary</EssaySummaryHead>
+      <EssaySummaryBody>{essayInfo.summary}</EssaySummaryBody>
+      <EssayHead>Essay</EssayHead>
+      <EssayBody>{essayInfo.essay}</EssayBody>
+    </Wrapper>
+  ) : (
+    <Wrapper />
+  );
 };
 
 const Wrapper = styled.div`
   padding: 30px;
-  height: 1000px;
+  height: 550px;
+  overflow-y: auto;
 `;
 
 const EssayWriter = styled.div`

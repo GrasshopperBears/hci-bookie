@@ -28,7 +28,7 @@ const SessionDetailBody = ({ info }) => {
   const history = useHistory();
 
   const button_shareboard = () => {
-    history.push('/shareboard/asd/add');
+    history.push(`/shareboard/${id}/ongoing`);
   };
   const button_apply = async () => {
     await db
@@ -40,7 +40,7 @@ const SessionDetailBody = ({ info }) => {
           displayName: firebase.auth().currentUser.displayName,
         }),
       });
-    setHideApply(true);
+    window.location.reload();
   };
 
   return (

@@ -39,7 +39,6 @@ const CreateSession = () => {
   const selectGenreBtn = useRef(undefined);
   const classes = useStyles();
 
-
   const radioClickhandler = (e) => {
     setIsRepeating(e.target.value === 'true');
   };
@@ -78,6 +77,7 @@ const CreateSession = () => {
         isRepeating,
         genre,
         likes: [],
+        essays: [],
       });
   };
 
@@ -244,12 +244,11 @@ const GenreButton = styled(Button)`
   justify-content: flex-start !important;
 `;
 const useStyles = makeStyles({
-
   banner: {
     color: '#000000',
     fontFamily: font,
     fontSize: '1.6rem',
-    margin: '25px 0 0 0'
+    margin: '25px 0 0 0',
   },
 });
 export default CreateSession;

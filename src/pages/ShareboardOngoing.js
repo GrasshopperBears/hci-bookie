@@ -1,53 +1,55 @@
-import React from 'react';
-import Divider from '@material-ui/core/Divider';
+import React, { useEffect, useState } from 'react';
 // import ShareboardEssayList from '../components/ShareboardEssayList';
 import ShareboardUserList from '../components/ShareboardUserList';
-import { Grid } from '@material-ui/core';
+import { Grid, Divider, List, ListItem } from '@material-ui/core';
 // import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
 // import HistoryIcon from '@material-ui/icons/History';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import ShareboardEssay from '../components/ShareboardEssay';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import EssayTab from '../components/EssayTab';
 import AddEssayButton from '../components/AddEssayButton';
+import firebase from '../firebase-config';
+
+const db = firebase.firestore();
 
 const ShareboardOngoing = () => {
   const { id } = useParams();
-  const essayList = [
-    {
-      title: 'My Funny Life',
-      writer: 1,
-      summary: 'This is Summary.',
-      essay: 'This is Essay.',
-    },
-    {
-      title: 'Family Day',
-      writer: 3,
-      summary: 'This is Summary 2.',
-      essay: 'This is Essay 2.',
-    },
-    {
-      title: 'Our Hope',
-      writer: 2,
-      summary: 'This is Summary 3.',
-      essay: 'This is Essay 3.',
-    },
-    {
-      title: 'TEST TEST',
-      writer: 0,
-      summary: 'This is Test.',
-      essay: 'This is TEST TEST',
-    },
-  ];
+  // const essayList = [
+  //   {
+  //     title: 'My Funny Life',
+  //     writer: 1,
+  //     summary: 'This is Summary.',
+  //     essay: 'This is Essay.',
+  //   },
+  //   {
+  //     title: 'Family Day',
+  //     writer: 3,
+  //     summary: 'This is Summary 2.',
+  //     essay: 'This is Essay 2.',
+  //   },
+  //   {
+  //     title: 'Our Hope',
+  //     writer: 2,
+  //     summary: 'This is Summary 3.',
+  //     essay: 'This is Essay 3.',
+  //   },
+  //   {
+  //     title: 'TEST TEST',
+  //     writer: 0,
+  //     summary: 'This is Test.',
+  //     essay: 'This is TEST TEST',
+  //   },
+  // ];
 
   const colorList = ['#F95047', '#A147F9', '#00C113', '#47B9BA'];
 
   const userList = ['이상현', '황영주', '이진우', '강건희'];
 
   const [selectedIndex, setSelectedIndex] = React.useState(-1);
+  const [authorized, setAuthorized] = useState(true);
+  const [essayList, setEssayList] = useState([]);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -58,6 +60,18 @@ const ShareboardOngoing = () => {
   // const clickHistory = () => {
   //   history.push('/shareboard/:id/history');
   // };
+  const updateAuthority = (host, participants) => {};
+
+  const fetchEssays = async () => {
+    const result = await db.collection('sessions').doc(id).get();
+    if (!result.exists) return;
+    const data = result.data();
+    setEssayList(data.essays);
+    updateAuthority(data.host, data.participants);
+  };
+  useEffect(() => {
+    fetchEssays();
+  }, [id]);
 
   return (
     <Grid direction='column'>
@@ -74,14 +88,16 @@ const ShareboardOngoing = () => {
             </IconButton> */}
           </Grid>
           <Divider />
-          <ListItem
-            button
-            onClick={() => {
-              history.push(`/shareboard/${id}/add`);
-            }}
-          >
-            <AddEssayButton />
-          </ListItem>
+          {authorized && (
+            <ListItem
+              button
+              onClick={() => {
+                history.push(`/shareboard/${id}/add`);
+              }}
+            >
+              <AddEssayButton />
+            </ListItem>
+          )}
           <List>
             {essayList.map((essay, index) => (
               <ListItem
@@ -89,17 +105,13 @@ const ShareboardOngoing = () => {
                 selected={selectedIndex === index}
                 onClick={(event) => handleListItemClick(event, index)}
               >
-                <EssayTab
-                  essay={essay}
-                  user={userList[essay.writer]}
-                  color={colorList[essay.writer]}
-                ></EssayTab>
+                <EssayTab info={essay} />
               </ListItem>
             ))}
           </List>
         </Grid>
         <Grid direction='column' xs={7}>
-          <ShareboardEssay index={selectedIndex} essay_info={essayList[selectedIndex]} userList={userList} />
+          <ShareboardEssay info={essayList[selectedIndex]} />
         </Grid>
       </Grid>
     </Grid>

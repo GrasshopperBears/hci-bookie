@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import CeterDiv from '../components/CenterDiv';
 import { TextField, Typography, FormControl, Button } from '@material-ui/core';
 import firebase from '../firebase-config';
+import styled from 'styled-components';
 
 const AddEssay = () => {
+  const history = useHistory();
   const { id } = useParams();
   const title = useRef(undefined);
   const summary = useRef(undefined);
@@ -13,11 +15,25 @@ const AddEssay = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     // title.current, summary.current, content.current에 value 저장되어있음
-    // await firebase.firestore().collection('sessions')
+    await firebase
+      .firestore()
+      .collection('sessions')
+      .doc(id)
+      .update({
+        essays: firebase.firestore.FieldValue.arrayUnion({
+          uid: firebase.auth().currentUser.uid,
+          displayName: firebase.auth().currentUser.displayName,
+          profileImg: firebase.auth().currentUser.photoURL,
+          title: title.current.value,
+          summary: summary.current.value,
+          essay: essay.current.value,
+        }),
+      });
+    history.push(`/shareboard/${id}/ongoing`);
   };
 
   return (
-    <>
+    <Wrapper>
       <form onSubmit={submitHandler}>
         <Typography variant='h2'>New Essay</Typography>
         <FormControl fullWidth margin='normal'>
@@ -62,8 +78,12 @@ const AddEssay = () => {
           </Button>
         </CeterDiv>
       </form>
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  margin-bottom: 50px;
+`;
 
 export default AddEssay;

@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid } from '@material-ui/core';
+import { Grid, Avatar } from '@material-ui/core';
 
-const EssayTab = ({ essay, user, color }) => {
+const EssayTab = ({ info }) => {
+  const { title, displayName, profileImg } = info;
+
   return (
     <TabWrap style={{ backgroundColor: '#ffffff' }}>
-      <Grid container direction='row'>
+      <Grid container direction='row' alignItems='center'>
         <Grid xs={1}>
-          <svg width='50' height='50' viewbox='0 0 50 50'>
-            <circle cx='25' cy='25' r='15' fill={color} />
-          </svg>
+          <Avatar alt='profile image' src={profileImg || process.env.PUBLIC_URL + '/default-profile.png'} />
         </Grid>
         <Grid xs={8}>
-          <EssayTitle>{essay.title}</EssayTitle>
+          <EssayTitle>{title}</EssayTitle>
         </Grid>
         <Grid xs={3}>
-          <EssayWriter>{user}</EssayWriter>
+          <EssayWriter>{displayName}</EssayWriter>
         </Grid>
       </Grid>
     </TabWrap>
@@ -26,7 +26,7 @@ const EssayTitle = styled.div`
   font-size: 1.2rem;
   font-weight: 500;
   line-height: 50px;
-  margin-left: 10px;
+  margin-left: 1.3rem;
   text-align: left;
 `;
 
