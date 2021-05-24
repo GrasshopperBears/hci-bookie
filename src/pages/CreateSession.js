@@ -12,14 +12,15 @@ import {
   FormControl,
   Button,
   TextField,
-  FormLabel,
+  // FormLabel,
   RadioGroup,
-  Radio,
-  FormControlLabel,
+  // Radio,
+  // FormControlLabel,
   Menu,
   MenuItem,
   Divider,
   CircularProgress,
+  Grid,
 } from '@material-ui/core';
 import { BiChevronDown } from 'react-icons/bi';
 import styled from 'styled-components';
@@ -41,9 +42,9 @@ const CreateSession = () => {
   const selectGenreBtn = useRef(undefined);
   const classes = useStyles();
 
-  const radioClickhandler = (e) => {
-    setIsRepeating(e.target.value === 'true');
-  };
+  // const radioClickhandler = (e) => {
+  //   setIsRepeating(e.target.value === 'true');
+  // };
   const openGenreDropdown = () => {
     setShowGenres(true);
   };
@@ -100,39 +101,43 @@ const CreateSession = () => {
           />
         </FormControl>
         <EnterBookInformation bookInfo={bookInfo} setBookInfo={setBookInfo} />
-        <RowDiv>
-          <FormControl fullWidth margin='normal'>
-            <TextField
-              required
-              inputRef={memberNumber}
-              type='number'
-              variant='outlined'
-              id='memberNumber'
-              label='Maximum number of participants'
-              placeholder='Enter maximum number of participants'
-            />
-          </FormControl>
-          <FormControl fullWidth margin='normal' required style={{ margin: '0 30px' }}>
+        <Grid container spacing={5}>
+          <Grid item xs={6}>
+            <FormControl fullWidth margin='normal'>
+              <TextField
+                required
+                inputRef={memberNumber}
+                type='number'
+                variant='outlined'
+                id='memberNumber'
+                label='Maximum number of participants'
+                placeholder='Enter maximum number of participants'
+              />
+            </FormControl>
+          </Grid>
+          {/* <FormControl fullWidth margin='normal' required style={{ margin: '0 30px' }}>
             <FormLabel>This Session is</FormLabel>
             <RadioGroupStyled onChange={radioClickhandler} name='isRepeating' defaultValue='false'>
               <FormControlLabel value='false' control={<Radio />} label='One-time' />
               <FormControlLabel value='true' control={<Radio />} label='Repeated' />
             </RadioGroupStyled>
-          </FormControl>
-          <FormControl fullWidth margin='normal'>
-            <TextField
-              required
-              inputRef={dateTime}
-              id='datetime-local'
-              label='Session Time'
-              type='datetime-local'
-              defaultValue={moment().format('YYYY-MM-DDTHH:MM')}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </FormControl>
-        </RowDiv>
+          </FormControl> */}
+          <Grid item xs={6}>
+            <FormControl fullWidth margin='normal'>
+              <TextField
+                required
+                inputRef={dateTime}
+                id='datetime-local'
+                label='Session Time'
+                type='datetime-local'
+                defaultValue={moment().format('YYYY-MM-DDTHH:MM')}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </FormControl>
+          </Grid>
+        </Grid>
         <FormControl fullWidth margin='normal'>
           <TextField
             required
@@ -233,16 +238,10 @@ const Wrapper = styled.div`
   margin-bottom: 40px;
 `;
 
-const RowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const RadioGroupStyled = styled(RadioGroup)`
-  display: flex;
-  flex-direction: row !important;
-`;
+// const RadioGroupStyled = styled(RadioGroup)`
+//   display: flex;
+//   flex-direction: row !important;
+// `;
 
 const GenreButton = styled(Button)`
   justify-content: flex-start !important;

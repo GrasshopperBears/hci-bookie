@@ -11,7 +11,7 @@ const MyDebateBody = ({ info }) => {
   const history = useHistory();
   const { id } = useParams();
   const {
-    bookInfo: { dateTime: publshDate, authors, thumbnail, publisher, title: bookTitle },
+    bookInfo: { datetime: publshDate, authors, thumbnail, publisher, title: bookTitle },
     title,
     genre,
     lastDebate,
@@ -74,7 +74,7 @@ const MyDebateBody = ({ info }) => {
               <Divider light orientation='vertical' variant='middle' />
               <GreyText>Publisher . {publisher}</GreyText>
               <Divider light orientation='vertical' variant='middle' />
-              <GreyText>Publish date . {publshDate}</GreyText>
+              <GreyText>Publish date . {moment(publshDate).format('YYYY-MM-DD')}</GreyText>
             </BookinfoWrapper>
             <Divider variant='middle' style={{ margin: '20px 0' }} />
             <BookinfoWrapper style={{ margin: '10px 0 30px' }}>
