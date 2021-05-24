@@ -9,6 +9,7 @@ import {
   ListItem,
   Typography,
   IconButton,
+  CircularProgress,
 } from '@material-ui/core';
 import styled from 'styled-components';
 import { RiRefreshFill } from 'react-icons/ri';
@@ -17,6 +18,7 @@ const EnterBookInformation = ({ bookInfo, setBookInfo }) => {
   const [inputValue, setInputValue] = useState('');
   const [visible, setVisible] = useState(false);
   const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const closeDialog = () => {
     setVisible(false);
@@ -25,6 +27,7 @@ const EnterBookInformation = ({ bookInfo, setBookInfo }) => {
 
   const searchHandler = async () => {
     if (!inputValue.length) return;
+    setLoading(true);
     const headers = { Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_API_KEY}` };
     try {
       const result = await axios.get(
@@ -36,6 +39,7 @@ const EnterBookInformation = ({ bookInfo, setBookInfo }) => {
     } catch (e) {
       console.error(e);
     }
+    setLoading(false);
   };
   const refreshHandler = () => {
     setInputValue('');
@@ -70,7 +74,7 @@ const EnterBookInformation = ({ bookInfo, setBookInfo }) => {
               size='large'
               color='primary'
             >
-              Find
+              {loading ? <CircularProgress size='25px' /> : 'Find'}
             </Button>
           ),
         }}

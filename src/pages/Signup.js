@@ -1,24 +1,27 @@
+/* eslint-disable no-restricted-globals */
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import firebase from '../firebase-config';
 import AuthIcons from '../components/AuthIcons';
 import { Typography, Link } from '@material-ui/core';
 import styled from 'styled-components';
 
 const Signup = () => {
-  const history = useHistory();
-
   const googleSignupHandler = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
       await firebase.auth().signInWithPopup(provider);
       const { uid, displayName } = firebase.auth().currentUser;
-      await firebase
-        .firestore()
-        .collection('bookshelf')
-        .doc(uid)
-        .set({ displayName, bookmarks: [], followers: [] });
+      const { exists } = await firebase.firestore().collection('bookshelf').doc(uid).get();
+      if (!exists) {
+        await firebase
+          .firestore()
+          .collection('bookshelf')
+          .doc(uid)
+          .set({ displayName, bookmarks: [], followers: [] });
+      } else {
+        alert('You already signed up');
+      }
       window.location.href = '/';
     } catch (e) {
       // const errorCode = e.code;
@@ -30,7 +33,7 @@ const Signup = () => {
     const provider = new firebase.auth.GithubAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
-      history.push('/');
+      window.location.href = '/';
     } catch (e) {
       alert('Error occured during signup. Please try again.');
     }

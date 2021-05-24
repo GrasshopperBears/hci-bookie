@@ -19,6 +19,7 @@ import {
   Menu,
   MenuItem,
   Divider,
+  CircularProgress,
 } from '@material-ui/core';
 import { BiChevronDown } from 'react-icons/bi';
 import styled from 'styled-components';
@@ -29,6 +30,7 @@ const CreateSession = () => {
   const [bookInfo, setBookInfo] = useState(undefined);
   const [isRepeating, setIsRepeating] = useState(false);
   const [showGenres, setShowGenres] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [genre, setGenre] = useState('');
   const title = useRef(undefined);
   const memberNumber = useRef(undefined);
@@ -56,8 +58,9 @@ const CreateSession = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!bookInfo) return alert('Please enter book information');
+    setLoading(true);
     const currentUser = firebase.auth().currentUser;
-    await firebase
+    const result = await firebase
       .firestore()
       .collection('sessions')
       .add({
@@ -79,6 +82,7 @@ const CreateSession = () => {
         likes: [],
         essays: [],
       });
+    history.push(`/my-debate/${result.id}`);
   };
 
   return (
@@ -217,7 +221,7 @@ const CreateSession = () => {
             size='large'
             style={{ float: 'center', marginTop: '20px' }}
           >
-            Create session
+            {loading ? <CircularProgress size='25px' /> : 'Create session'}
           </Button>
         </CeterDiv>
       </form>

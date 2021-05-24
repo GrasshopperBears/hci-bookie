@@ -18,6 +18,7 @@ const SessionDetailBody = ({ info }) => {
     // likes,
     participants,
     host,
+    memberNumber,
   } = info;
 
   const [hideApply, setHideApply] = useState(
@@ -40,7 +41,7 @@ const SessionDetailBody = ({ info }) => {
           displayName: firebase.auth().currentUser.displayName,
         }),
       });
-    window.location.reload();
+    history.push(`/my-debate/${id}`);
   };
 
   return (
@@ -112,7 +113,7 @@ const SessionDetailBody = ({ info }) => {
         >
           Share board
         </Button>
-        {!hideApply && (
+        {!hideApply && memberNumber > participants.length + 1 && (
           <Button
             variant='contained'
             onClick={button_apply}

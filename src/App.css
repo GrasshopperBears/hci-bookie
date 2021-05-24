@@ -1,6 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
-
-.MuiButton-contained:not(.Mui-disabled) {
+.MuiButton-containedPrimary:not(.Mui-disabled) {
   background-color: #ec9f05 !important;
 }

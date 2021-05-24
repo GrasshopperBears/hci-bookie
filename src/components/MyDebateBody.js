@@ -1,9 +1,11 @@
+/* eslint-disable no-restricted-globals */
 import React from 'react';
 import moment from 'moment';
 import { useHistory, useParams } from 'react-router-dom';
-import { Grid, Typography, Divider, ButtonGroup, Button } from '@material-ui/core';
+import { Grid, Typography, Divider, Button } from '@material-ui/core';
 import styled from 'styled-components';
 import SessionHeaderCommon from './SessionHeaderCommon';
+import firebase from '../firebase-config';
 
 const MyDebateBody = ({ info }) => {
   const history = useHistory();
@@ -28,6 +30,29 @@ const MyDebateBody = ({ info }) => {
   };
   const goSharboard = () => {
     history.push(`/shareboard/${id}/ongoing`);
+  };
+  const deleteSession = async () => {
+    if (host.uid === firebase.auth().currentUser.uid) {
+      if (confirm('Do you really want to delete this session?')) {
+        await firebase.firestore().collection('sessions').doc(id).delete();
+        history.replace('/');
+      }
+    } else {
+      const { currentUser } = firebase.auth();
+      if (confirm('Do you really want to cancel join this session?')) {
+        await firebase
+          .firestore()
+          .collection('sessions')
+          .doc(id)
+          .update({
+            participants: firebase.firestore.FieldValue.arrayRemove({
+              uid: currentUser.uid,
+              displayName: currentUser.displayName,
+            }),
+          });
+        history.replace('/');
+      }
+    }
   };
 
   return (
@@ -94,28 +119,23 @@ const MyDebateBody = ({ info }) => {
       </Grid>
 
       <Grid container spacing={10} alignItems='center' direction='row' justify='center'>
-        <Button
-          variant='contained'
-          onClick={goSharboard}
-          style={{ color: '#FFFFFF', margin: '0 10px 100px 10px', padding: '5px 50px 5px 50px' }}
-        >
+        <ButtonStyled variant='contained' onClick={goSharboard} color='primary'>
           Share board
-        </Button>
-        <Button
+        </ButtonStyled>
+        <ButtonStyled
           variant='contained'
           onClick={startMeeting}
-          style={{ color: '#FFFFFF', margin: '0 10px 100px 10px', padding: '5px 50px 5px 50px' }}
           disabled={moment(nextDebate).diff(moment(), 'minutes') > 30}
+          color='primary'
         >
           Start debate
-        </Button>
-        <Button
-          variant='contained'
-          onClick={goDetailPage}
-          style={{ color: '#FFFFFF', margin: '0 10px 100px 10px', padding: '5px 50px 5px 50px' }}
-        >
+        </ButtonStyled>
+        <ButtonStyled variant='contained' onClick={goDetailPage} color='primary'>
           More detail
-        </Button>
+        </ButtonStyled>
+        <ButtonStyled variant='contained' onClick={deleteSession} color='secondary'>
+          {host.uid === firebase.auth().currentUser.uid ? 'Delete' : 'Cancel join'}
+        </ButtonStyled>
       </Grid>
     </>
   );
@@ -193,11 +213,10 @@ const UserInfoWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const ButtonGruopStyled = styled(ButtonGroup)`
-  button {
-    font-size: 1.1rem;
-    text-transform: none;
-  }
+const ButtonStyled = styled(Button)`
+  color: #ffffff;
+  margin: 0 10px 100px 10px !important;
+  padding: 5px 50px !important;
 `;
 
 export default MyDebateBody;
