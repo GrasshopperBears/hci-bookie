@@ -16,40 +16,13 @@ const db = firebase.firestore();
 
 const ShareboardOngoing = () => {
   const { id } = useParams();
-  // const essayList = [
-  //   {
-  //     title: 'My Funny Life',
-  //     writer: 1,
-  //     summary: 'This is Summary.',
-  //     essay: 'This is Essay.',
-  //   },
-  //   {
-  //     title: 'Family Day',
-  //     writer: 3,
-  //     summary: 'This is Summary 2.',
-  //     essay: 'This is Essay 2.',
-  //   },
-  //   {
-  //     title: 'Our Hope',
-  //     writer: 2,
-  //     summary: 'This is Summary 3.',
-  //     essay: 'This is Essay 3.',
-  //   },
-  //   {
-  //     title: 'TEST TEST',
-  //     writer: 0,
-  //     summary: 'This is Test.',
-  //     essay: 'This is TEST TEST',
-  //   },
-  // ];
-
-  const colorList = ['#F95047', '#A147F9', '#00C113', '#47B9BA'];
-
-  const userList = ['이상현', '황영주', '이진우', '강건희'];
+  // const userList = ['이상현', '황영주', '이진우', '강건희'];
 
   const [selectedIndex, setSelectedIndex] = React.useState(-1);
-  const [authorized, setAuthorized] = useState(true);
+  const [authorized, setAuthorized] = useState(false);
   const [essayList, setEssayList] = useState([]);
+  const [userList, setUserList] = useState([]);
+  const [filterUser, setFilterUser] = useState(undefined);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -60,23 +33,32 @@ const ShareboardOngoing = () => {
   // const clickHistory = () => {
   //   history.push('/shareboard/:id/history');
   // };
-  const updateAuthority = (host, participants) => {};
+  const updateAuthority = (host, participants) => {
+    const { currentUser } = firebase.auth();
+    if (host.uid === currentUser.uid) return setAuthorized(true);
+    if (participants.findIndex((participant) => participant.uid === currentUser.uid) >= 0)
+      setAuthorized(true);
+  };
 
   const fetchEssays = async () => {
     const result = await db.collection('sessions').doc(id).get();
     if (!result.exists) return;
     const data = result.data();
     setEssayList(data.essays);
+    setUserList([data.host, ...data.participants]);
     updateAuthority(data.host, data.participants);
   };
   useEffect(() => {
     fetchEssays();
   }, [id]);
+  const filterHandler = (uid) => {
+    setFilterUser(uid === filterUser ? undefined : uid);
+  };
 
   return (
     <Grid direction='column'>
       <Grid>
-        <ShareboardUserList userList={userList} colorList={colorList}></ShareboardUserList>
+        <ShareboardUserList users={userList} filter={filterHandler} filterUser={filterUser} />
       </Grid>
       <Divider className={classes.divider} orientation='horizontal'></Divider>
       <Grid container direction='row' xs={12}>
@@ -99,15 +81,18 @@ const ShareboardOngoing = () => {
             </ListItem>
           )}
           <List>
-            {essayList.map((essay, index) => (
-              <ListItem
-                button
-                selected={selectedIndex === index}
-                onClick={(event) => handleListItemClick(event, index)}
-              >
-                <EssayTab info={essay} />
-              </ListItem>
-            ))}
+            {essayList.map((essay, index) => {
+              if (filterUser && filterUser !== essay.uid) return <></>;
+              return (
+                <ListItem
+                  button
+                  selected={selectedIndex === index}
+                  onClick={(event) => handleListItemClick(event, index)}
+                >
+                  <EssayTab info={essay} />
+                </ListItem>
+              );
+            })}
           </List>
         </Grid>
         <Grid direction='column' xs={7}>

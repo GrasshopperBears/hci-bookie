@@ -1,35 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid } from '@material-ui/core';
+import { Avatar, ListItem } from '@material-ui/core';
 
-const ShareboardUserTab = ({ name, color }) => {
+const ShareboardUserTab = ({ user, filter, selected }) => {
   return (
-    <TabWrap>
-      <Grid container direction='row'>
-        <Grid item xs={3}>
-          <svg width='50' height='50' viewbox='0 0 50 50'>
-            <circle cx='20' cy='15' r='12' fill={color} />
-          </svg>
-        </Grid>
-        <Grid item xs={9}>
-          <EssayWriter>{name}</EssayWriter>
-        </Grid>
-      </Grid>
+    <TabWrap
+      button
+      onClick={() => {
+        filter(user.uid);
+      }}
+      variant='outline'
+      selected={selected}
+    >
+      <UserAvatar
+        alt='profile image'
+        src={user.profileImg || process.env.PUBLIC_URL + '/default-profile.png'}
+      />
+      <EssayWriter>{user.displayName}</EssayWriter>
     </TabWrap>
   );
 };
 
-const TabWrap = styled.div`
-  border: 2px solid lightgray;
-  border-radius: 5px;
-  width: 100%;
-  height: 30px;
+const TabWrap = styled(ListItem)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 2px solid lightgray !important;
+  border-radius: 5px !important;
+  width: max-content;
+  height: 35px;
   padding: 5px;
   align-items: center;
 `;
 
+const UserAvatar = styled(Avatar)`
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 15px;
+`;
+
 const EssayWriter = styled.div`
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 30px;
   text-align: center;
