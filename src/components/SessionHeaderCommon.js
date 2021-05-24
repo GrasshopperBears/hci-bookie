@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import firebase from '../firebase-config';
 import styled from 'styled-components';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-const font = "'Russo One', sans-serif";
 
+const font = "'Russo One', sans-serif";
 const db = firebase.firestore();
 
 const SessionHeaderComon = ({ title, likes }) => {

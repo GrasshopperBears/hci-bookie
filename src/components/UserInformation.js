@@ -47,11 +47,6 @@ const UserInformation = ({ isHost, info }) => {
   );
 };
 
-const ProfileImg = styled.img`
-  width: 1.9rem;
-  height: 1.9rem;
-`;
-
 const Wrapper = styled(Grid)`
   :hover {
     cursor: ${(props) => props.hasUser && 'pointer'};

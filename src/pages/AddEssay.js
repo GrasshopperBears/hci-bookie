@@ -14,7 +14,6 @@ const AddEssay = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // title.current, summary.current, content.current에 value 저장되어있음
     await firebase
       .firestore()
       .collection('sessions')

@@ -24,8 +24,6 @@ const Signup = () => {
       }
       window.location.href = '/';
     } catch (e) {
-      // const errorCode = e.code;
-      // const errorMessage = e.message;
       alert('Error occured during signup. Please try again.');
     }
   };

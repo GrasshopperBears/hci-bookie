@@ -55,12 +55,11 @@ const MainPageMySessions = () => {
   );
 };
 const useStyles = makeStyles({
-
   banner: {
     color: '#000000',
     fontFamily: font,
     fontSize: '1.6rem',
-    margin: '25px 0'
+    margin: '25px 0',
   },
 });
 export default MainPageMySessions;

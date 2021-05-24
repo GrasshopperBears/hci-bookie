@@ -15,13 +15,12 @@ const SessionDetailBody = ({ info }) => {
     bookInfo: { authors, publisher, thumbnail },
     genre,
     content,
-    // likes,
     participants,
     host,
     memberNumber,
   } = info;
 
-  const [hideApply, setHideApply] = useState(
+  const [hideApply] = useState(
     !firebase.auth().currentUser ||
       host.uid === firebase.auth().currentUser.uid ||
       participants.findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1,
@@ -74,24 +73,14 @@ const SessionDetailBody = ({ info }) => {
         </BookinfoWrapper>
         <BookinfoWrapper style={{ margin: '10px 0 30px' }}>
           <Typography style={{ marginRight: '30px' }}>#{genre}</Typography>
-          {/* {tags.map((el) => (
-            <Typography style={{ marginRight: '30px' }}>#{el}</Typography>
-          ))} */}
         </BookinfoWrapper>
-
         <HorizonLine w='100%' m='10px 0 -5px 0' b='5px solid #EEEEEE' />
         <HorizonLine w='10%' m='0 0 30px 0 ' b='5px solid #EC9F05' />
-
         <Typography variant='body1' style={{ maxWidth: '100%', marginBottom: '20px' }}>
           {content.split('/n').map((line) => (
             <span>{line}</span>
           ))}
         </Typography>
-        {/* <BookinfoWrapper style={{ width: '100%', justifyContent: 'flex-end' }}>
-          <Typography align='right' style={{ marginBottom: '5px', maxWidth: '100%' }}>
-            <FontAwesomeIcon icon={faHeart} color='red' size='1x' /> {likes || 0} likes
-          </Typography>
-        </BookinfoWrapper> */}
         <HorizonLine w='100%' m='0 0 10px 0' b='5px solid #EEEEEE' />
         <Typography
           variant='h6'

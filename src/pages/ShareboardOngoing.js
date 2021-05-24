@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react';
-// import ShareboardEssayList from '../components/ShareboardEssayList';
 import ShareboardUserList from '../components/ShareboardUserList';
-import { Grid, Divider, List, ListItem } from '@material-ui/core';
-// import IconButton from '@material-ui/core/IconButton';
+import { Grid, Divider, List, ListItem, Typography } from '@material-ui/core';
 import styled from 'styled-components';
-// import HistoryIcon from '@material-ui/icons/History';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import ShareboardEssay from '../components/ShareboardEssay';
 import EssayTab from '../components/EssayTab';
 import AddEssayButton from '../components/AddEssayButton';
 import firebase from '../firebase-config';
+import CenterDiv from '../components/CenterDiv';
 
 const db = firebase.firestore();
 
 const ShareboardOngoing = () => {
   const { id } = useParams();
-  // const userList = ['이상현', '황영주', '이진우', '강건희'];
-
   const [selectedIndex, setSelectedIndex] = React.useState(-1);
   const [authorized, setAuthorized] = useState(false);
   const [essayList, setEssayList] = useState([]);
@@ -30,9 +26,7 @@ const ShareboardOngoing = () => {
 
   const classes = useStyles();
   const history = useHistory();
-  // const clickHistory = () => {
-  //   history.push('/shareboard/:id/history');
-  // };
+
   const updateAuthority = (host, participants) => {
     const { currentUser } = firebase.auth();
     if (host.uid === currentUser.uid) return setAuthorized(true);
@@ -65,9 +59,6 @@ const ShareboardOngoing = () => {
         <Grid direction='column' xs={5} style={{ backgroundColor: '#EBE7E4' }}>
           <Grid container direction='row'>
             <WrapOngoing>Ongoing Essay</WrapOngoing>
-            {/* <IconButton aria-label="History" onClick={clickHistory}>
-              <HistoryIcon style={{ fontSize: 35 }}/>
-            </IconButton> */}
           </Grid>
           <Divider />
           {authorized && (
@@ -93,6 +84,13 @@ const ShareboardOngoing = () => {
                 </ListItem>
               );
             })}
+            {essayList.length === 0 && (
+              <CenterDiv>
+                <Typography variant='overline' style={{ fontSize: '1rem', marginTop: '5rem' }}>
+                  There is no essay yet
+                </Typography>
+              </CenterDiv>
+            )}
           </List>
         </Grid>
         <Grid direction='column' xs={7}>

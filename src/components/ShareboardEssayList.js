@@ -9,15 +9,13 @@ const ShareboardEssayList = ({ essayList, onEssay }) => {
   };
 
   return (
-    <div>
-      <List>
-        {essayList.map((essay, index) => (
-          <ListItem button onClick={clickHandler(index)}>
-            <EssayTab essay={essay}></EssayTab>
-          </ListItem>
-        ))}
-      </List>
-    </div>
+    <List>
+      {essayList.map((essay, index) => (
+        <ListItem button onClick={clickHandler(index)}>
+          <EssayTab essay={essay} />
+        </ListItem>
+      ))}
+    </List>
   );
 };
 
