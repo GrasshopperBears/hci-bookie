@@ -1,13 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import firebase from '../firebase-config';
 import AuthIcons from '../components/AuthIcons';
 import { Typography, Link } from '@material-ui/core';
 import styled from 'styled-components';
 
 const Signin = () => {
-  const history = useHistory();
-
   const googleSigninHandler = async () => {
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -22,7 +19,7 @@ const Signin = () => {
     const provider = new firebase.auth.GithubAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
-      history.push('/');
+      window.location.href = '/';
     } catch (e) {
       alert('Error occured during signin. Please try again.');
     }
