@@ -1,22 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 
 const ShareboardUserTab = ({ name, color }) => {
   return (
     <TabWrap>
-      <Grid container direction="row">
+      <Grid container direction='row'>
         <Grid item xs={3}>
-          <svg width="50" height="50" viewbox= "0 0 50 50">
-            <circle cx="20" cy="15" r="12" fill={color}/>
+          <svg width='50' height='50' viewbox='0 0 50 50'>
+            <circle cx='20' cy='15' r='12' fill={color} />
           </svg>
         </Grid>
         <Grid item xs={9}>
-          <EssayWriter>
-            {name}
-          </EssayWriter>
+          <EssayWriter>{name}</EssayWriter>
         </Grid>
       </Grid>
     </TabWrap>

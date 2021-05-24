@@ -19,7 +19,7 @@ const MainRouter = () => {
         <Route exact path='/bookshelf/detail' component={Pages.BookshelfDetail} />
         <Route exact path='/bookshelf/:id' component={Pages.BookshelfMain} />
         <Route exact path='/shareboard/:id/ongoing' component={Pages.ShareboardOngoing} />
-        <Route exact path='/shareboard/:id/history' component={Pages.ShareboardHistory} />
+        {/* <Route exact path='/shareboard/:id/history' component={Pages.ShareboardHistory} /> */}
         <AuthorizedRouter exact path='/shareboard/:id/add' component={Pages.AddEssay} />
         <Route component={Pages.NotFound} />
       </Switch>

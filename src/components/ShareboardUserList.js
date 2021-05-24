@@ -1,24 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
-import List from '@material-ui/core/List';
-import GridList from '@material-ui/core/GridList';
 import ShareboardUserTab from './ShareboardUserTab';
 
 const ShareboardUserList = ({ userList, colorList }) => {
   return (
     <Wrapper>
-      <Grid container direction="row" justify="flex-start" spacing="4">
+      <Grid container direction='row' justify='flex-start' spacing='4'>
         {userList.map((user, index) => (
-          <Grid item button alignItems="center">
+          <Grid item button alignItems='center'>
             <ShareboardUserTab name={user} color={colorList[index]} />
           </Grid>
         ))}
       </Grid>
     </Wrapper>
-    
   );
 };
 
@@ -29,4 +24,3 @@ const Wrapper = styled.div`
 `;
 
 export default ShareboardUserList;
-

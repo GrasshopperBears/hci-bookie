@@ -6,7 +6,7 @@ import { Grid, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import SessionHeaderCommon from './SessionHeaderCommon';
 import { makeStyles } from '@material-ui/core/styles';
-const font = "'Russo One', sans-serif";
+// const font = "'Russo One', sans-serif";
 
 const SessionDetailHeader = ({ info }) => {
   const { title, likes, dateTime, participants } = info;

@@ -1,33 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import { getThemeProps } from '@material-ui/styles';
 
 const ShareboardEssay = ({ index, essay_info, userList }) => {
   if (index < 0) {
-    return <Wrapper/>;
-  }
-  else {
+    return <Wrapper />;
+  } else {
     return (
-        <Wrapper>
-          <EssayWriter>{userList[essay_info.writer]}</EssayWriter>
-          <EssayTitle>{essay_info.title}</EssayTitle>
-          <EssaySummaryHead>Summary</EssaySummaryHead>
-          <EssaySummaryBody>{essay_info.summary}</EssaySummaryBody>
-          <EssayHead>Essay</EssayHead>
-          <EssayBody>{essay_info.essay}</EssayBody>
-        </Wrapper>
-      );
-      }
-  
+      <Wrapper>
+        <EssayWriter>{userList[essay_info.writer]}</EssayWriter>
+        <EssayTitle>{essay_info.title}</EssayTitle>
+        <EssaySummaryHead>Summary</EssaySummaryHead>
+        <EssaySummaryBody>{essay_info.summary}</EssaySummaryBody>
+        <EssayHead>Essay</EssayHead>
+        <EssayBody>{essay_info.essay}</EssayBody>
+      </Wrapper>
+    );
+  }
 };
 
 const Wrapper = styled.div`
   padding: 30px;
   height: 1000px;
-`
+`;
 
 const EssayWriter = styled.div`
   font-size: 20px;

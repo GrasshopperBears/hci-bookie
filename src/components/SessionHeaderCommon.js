@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import firebase from '../firebase-config';
 import styled from 'styled-components';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { makeStyles } from '@material-ui/core/styles';
 const font = "'Russo One', sans-serif";
 
 const db = firebase.firestore();

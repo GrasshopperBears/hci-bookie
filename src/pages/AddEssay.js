@@ -1,15 +1,19 @@
 import React, { useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import CeterDiv from '../components/CenterDiv';
 import { TextField, Typography, FormControl, Button } from '@material-ui/core';
+import firebase from '../firebase-config';
 
 const AddEssay = () => {
+  const { id } = useParams();
   const title = useRef(undefined);
   const summary = useRef(undefined);
-  const content = useRef(undefined);
+  const essay = useRef(undefined);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     // title.current, summary.current, content.current에 value 저장되어있음
+    // await firebase.firestore().collection('sessions')
   };
 
   return (
@@ -43,11 +47,11 @@ const AddEssay = () => {
           <TextField
             required
             multiline
-            inputRef={content}
+            inputRef={essay}
             rows={20}
             rowsMax={20}
             variant='outlined'
-            id='content'
+            id='essay'
             label='Essay'
             placeholder='Write down your essay. Please share how you think and feel.'
           />

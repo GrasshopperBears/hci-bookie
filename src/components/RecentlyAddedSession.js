@@ -39,7 +39,6 @@ const RecentlyAddedSession = () => {
   );
 };
 
-
 const useStyles = makeStyles({
   title: {
     color: '#FFFFFF',
