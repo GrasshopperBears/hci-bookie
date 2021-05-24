@@ -60,7 +60,7 @@ const BookshelfMain = () => {
           <BestBookGrid item lg={5} md={12}>
             <Grid container justify='center'>
               <Typography variant={bestBook ? 'h4' : 'h6'} style={{ marginBottom: '30px' }}>
-                {bestBook ? "User's best book" : `${userName} didn't set best book yet :(`}
+                {bestBook ? `${userName}'s best book` : `${userName} didn't set best book yet :(`}
               </Typography>
               {bestBook && <BookshelfCard userName={userName} info={bestBook} isBest />}
             </Grid>

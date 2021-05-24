@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
 import firebase from '../firebase-config';
@@ -41,6 +42,7 @@ function a11yProps(index) {
 export default function BookshelfTabs({ info, isOwner }) {
   const { title, authors, publisher, datetime } = info.bookInfo;
   const [value, setValue] = React.useState(0);
+  const history = useHistory();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -51,7 +53,8 @@ export default function BookshelfTabs({ info, isOwner }) {
       .collection('bookshelf')
       .doc(firebase.auth().currentUser.uid)
       .update({ bestBook: info });
-    alert('Current book is set as the best book');
+    alert('The book has set as the best book');
+    history.goBack();
   };
 
   return (
