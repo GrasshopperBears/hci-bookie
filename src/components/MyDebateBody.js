@@ -21,6 +21,7 @@ const MyDebateBody = ({ info }) => {
     likes,
     zoomUrl,
   } = info;
+  const disableDebate = moment(nextDebate).diff(moment(), 'minutes') > 30;
   const goDetailPage = () => {
     history.push(`/session/detail/${id}`);
   };
@@ -119,13 +120,10 @@ const MyDebateBody = ({ info }) => {
         <ButtonStyled variant='contained' onClick={goSharboard} color='primary'>
           Share board
         </ButtonStyled>
-        <ButtonStyled
-          variant='contained'
-          onClick={startMeeting}
-          disabled={moment(nextDebate).diff(moment(), 'minutes') > 30}
-          color='primary'
-        >
-          Start debate
+        <ButtonStyled variant='contained' onClick={startMeeting} disabled={disableDebate} color='primary'>
+          {disableDebate
+            ? `Debate opens at ${moment(nextDebate).subtract(30, 'minutes').format('MMMM Do, H:mm')}`
+            : 'Start debate'}
         </ButtonStyled>
         <ButtonStyled variant='contained' onClick={goDetailPage} color='primary'>
           More detail
