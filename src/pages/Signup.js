@@ -30,7 +30,21 @@ const Signup = () => {
   const githubSignupHandler = async () => {
     const provider = new firebase.auth.GithubAuthProvider();
     try {
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
       await firebase.auth().signInWithPopup(provider);
+      const { uid, displayName } = firebase.auth().currentUser;
+      const { exists } = await firebase.firestore().collection('bookshelf').doc(uid).get();
+
+      if (!exists) {
+        await firebase
+          .firestore()
+          .collection('bookshelf')
+          .doc(uid)
+          .set({ displayName, bookmarks: [], followers: [] });
+      } else {
+        alert('You already signed up');
+      }
+
       window.location.href = '/';
     } catch (e) {
       alert('Error occured during signup. Please try again.');
