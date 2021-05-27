@@ -40,6 +40,24 @@ Checks whether user logged in and shows components
 
 Main router of application. shows banner and pages depend on path
 
-### /src/MainPage.js
+### /src/pages/MainPage.js
 
 Main page of application. It shows sessions that user is participating and newly created sessions.
+
+### /src/pages/CreateSession.js, /src/pages/SessionDetail.js
+
+Pages related task 1, which is
+
+> Create your own debate session with brief introduction and some details
+
+### /src/pages/BookshelfMain.js, /src/pages/BookshelfDetail.js
+
+Pages related task 2, which is
+
+> Find the favorite book that a debate-mate picked and how the user think about books.(Out of session)
+
+### /src/pages/AddEssay.js, /src/pages/ShareboardOngoing.js
+
+Pages related task 3, which is
+
+> See how other people are preparing current debate and prepare debate like they do
