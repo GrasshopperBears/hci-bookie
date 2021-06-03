@@ -6,8 +6,11 @@ import BookshelfTitle from '../components/BookshelfTitle';
 import Grid from '@material-ui/core/Grid';
 import { useHistory, useParams } from 'react-router';
 import firebase from '../firebase-config';
-
+import { makeStyles } from '@material-ui/core/styles';
+const font = "'Russo One', sans-serif";
 const BookshelfMain = () => {
+
+  const classes = useStyles();
   const history = useHistory();
   const { id } = useParams();
   const [userName, setUserName] = useState('');
@@ -58,8 +61,8 @@ const BookshelfMain = () => {
       {bookmarks.length ? (
         <Grid container direction='row' style={{ height: '75vh', marginTop: '5vh' }}>
           <BestBookGrid item lg={5} md={12}>
-            <Grid container justify='center'>
-              <Typography variant={bestBook ? 'h4' : 'h6'} style={{ marginBottom: '30px' }}>
+            <Grid container justify='center' direction='column'>
+              <Typography className={classes.title} style={bestBook ? { marginBottom: '10px' } : { marginBottom: '10px' }}>
                 {bestBook ? `${userName}'s best book` : `${userName} didn't set best book yet :(`}
               </Typography>
               {bestBook && <BookshelfCard userName={userName} info={bestBook} isBest />}
@@ -91,13 +94,28 @@ const BookshelfMain = () => {
         </Grid>
       ) : (
         <NoBookmark>
-          <Typography variant='h4'>There is no bookmark yet :(</Typography>{' '}
+          <Typography className={classes.noBook} >There is no bookmark yet :(</Typography>{' '}
         </NoBookmark>
       )}
     </>
   );
 };
-
+const useStyles = makeStyles({
+  title: {
+    color: '#EC9F05',
+    padding: '10px 10px 10px 20px',
+    margin: '-30px 0 -50px 0',
+    fontSize: '1.3rem',
+    fontWeight: 'bold',
+  },
+  noBook: {
+    color: '#EC9F05',
+    padding: '10px 10px 10px 20px',
+    margin: '-30px 0 -50px 0',
+    fontSize: '1.8rem',
+    fontWeight: 'bold',
+  },
+});
 const Wrapper = styled(Card)`
   position: block;
   width: 150px;

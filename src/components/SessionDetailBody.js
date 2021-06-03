@@ -22,8 +22,8 @@ const SessionDetailBody = ({ info }) => {
 
   const [hideApply] = useState(
     !firebase.auth().currentUser ||
-      host.uid === firebase.auth().currentUser.uid ||
-      participants.findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1,
+    host.uid === firebase.auth().currentUser.uid ||
+    participants.findIndex((el) => el.uid === firebase.auth().currentUser.uid) !== -1,
   );
   const history = useHistory();
 
@@ -31,6 +31,7 @@ const SessionDetailBody = ({ info }) => {
     history.push(`/shareboard/${id}/ongoing`);
   };
   const button_apply = async () => {
+    alert('You succesfully apply for a new debate!');
     await db
       .collection('sessions')
       .doc(id)

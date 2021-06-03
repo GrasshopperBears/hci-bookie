@@ -1,11 +1,15 @@
 import React, { useRef } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import CeterDiv from '../components/CenterDiv';
 import { TextField, Typography, FormControl, Button } from '@material-ui/core';
 import firebase from '../firebase-config';
 import styled from 'styled-components';
 
+const font = "'Russo One', sans-serif";
+
 const AddEssay = () => {
+  const classes = useStyles();
   const history = useHistory();
   const { id } = useParams();
   const title = useRef(undefined);
@@ -34,7 +38,7 @@ const AddEssay = () => {
   return (
     <Wrapper>
       <form onSubmit={submitHandler}>
-        <Typography variant='h2'>New Essay</Typography>
+        <Typography className={classes.banner}>New Essay</Typography>
         <FormControl fullWidth margin='normal'>
           <TextField
             required
@@ -80,7 +84,14 @@ const AddEssay = () => {
     </Wrapper>
   );
 };
-
+const useStyles = makeStyles({
+  banner: {
+    color: '#000000',
+    fontFamily: font,
+    fontSize: '1.6rem',
+    margin: '25px 0 0 0',
+  },
+});
 const Wrapper = styled.div`
   margin-bottom: 50px;
 `;

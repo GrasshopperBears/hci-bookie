@@ -13,7 +13,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import EssayTab from '../components/EssayTab';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
-
+const font = "'Russo One', sans-serif";
 const ShareboardHistory = () => {
   const essayList = [
     {
@@ -103,7 +103,7 @@ const ShareboardHistory = () => {
       <Grid container direction='row' xs={12}>
         <Grid direction='column' xs={6} style={{ backgroundColor: '#EBE7E4' }}>
           <Grid container direction='row'>
-            <WrapOngoing>Essay History</WrapOngoing>
+            <WrapOngoing className={classes.fontie}>Essay History</WrapOngoing>
             <IconButton aria-label='History' onClick={clickHistory}>
               <AutorenewIcon style={{ fontSize: 35 }} />
             </IconButton>
@@ -139,12 +139,17 @@ const WrapOngoing = styled.div`
   margin-left: 20px;
   text-align: left;
   padding: 10px;
+  fontFamily: font;
 `;
 
 const useStyles = makeStyles({
   divider: {
     background: '#EBE7E4',
   },
+  fontie: {
+
+    fontFamily: font,
+  }
 });
 
 export default ShareboardHistory;
