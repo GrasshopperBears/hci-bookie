@@ -9,6 +9,7 @@ import EssayTab from '../components/EssayTab';
 import AddEssayButton from '../components/AddEssayButton';
 import firebase from '../firebase-config';
 import CenterDiv from '../components/CenterDiv';
+const font = "'Russo One', sans-serif";
 
 const db = firebase.firestore();
 
@@ -58,7 +59,7 @@ const ShareboardOngoing = () => {
       <Grid container direction='row' xs={12}>
         <Grid direction='column' xs={5} style={{ backgroundColor: '#EBE7E4' }}>
           <Grid container direction='row'>
-            <WrapOngoing>Ongoing Essay</WrapOngoing>
+            <WrapOngoing className={classes.fontie}>Ongoing Essay</WrapOngoing>
           </Grid>
           <Divider />
           {authorized && (
@@ -102,7 +103,7 @@ const ShareboardOngoing = () => {
 };
 
 const WrapOngoing = styled.div`
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 700;
   margin-left: 20px;
   text-align: left;
@@ -113,6 +114,10 @@ const useStyles = makeStyles({
   divider: {
     background: '#EBE7E4',
   },
+  fontie: {
+
+    fontFamily: font,
+  }
 });
 
 export default ShareboardOngoing;
