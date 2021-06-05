@@ -25,8 +25,8 @@ const EssayTab = ({ info }) => {
 const EssayTitle = styled.div`
   font-size: 1.2rem;
   font-weight: 500;
-  line-height: 50px;
-  margin-left: 1.3rem;
+  line-height: 2rem;
+  margin-left: 1.8rem;
   text-align: left;
 `;
 
@@ -36,13 +36,14 @@ const EssayWriter = styled.div`
   line-height: 50px;
   margin-right: 10px;
   text-align: right;
+  line-height: 2rem;
 `;
 
 const TabWrap = styled.div`
   border: 2px solid lightgray;
   border-radius: 10px;
   width: 100%;
-  height: 50px;
+  height: max-content;
   padding: 5px;
   align-items: center;
 `;
