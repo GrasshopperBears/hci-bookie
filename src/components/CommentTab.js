@@ -3,15 +3,14 @@ import styled from 'styled-components';
 import { Grid, Avatar } from '@material-ui/core';
 
 const CommentTab = ({ info }) => {
-
   return (
     <TabWrap style={{ backgroundColor: '#ffffff' }}>
       <Grid container direction='column' alignItems='left'>
-        <Grid xs={2}>
-          <Writer>{info['name']}</Writer>
+        <Grid>
+          <Writer>{info.displayName}</Writer>
         </Grid>
-        <Grid xs={8}>
-          <Comment>{info['comment']}</Comment>
+        <Grid>
+          <Comment>{info.text}</Comment>
         </Grid>
       </Grid>
     </TabWrap>
@@ -27,6 +26,7 @@ const Comment = styled.div`
 const Writer = styled.div`
   font-size: 18px;
   font-weight: 600;
+  width: 100%;
 `;
 
 const TabWrap = styled.div`

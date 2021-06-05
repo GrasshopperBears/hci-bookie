@@ -18,6 +18,7 @@ const ShareboardOngoing = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(-1);
   const [authorized, setAuthorized] = useState(false);
   const [essayList, setEssayList] = useState([]);
+  const [commnetList, setCommentList] = useState({});
   const [userList, setUserList] = useState([]);
   const [filterUser, setFilterUser] = useState(undefined);
 
@@ -35,6 +36,15 @@ const ShareboardOngoing = () => {
       setAuthorized(true);
   };
 
+  const fetchComments = async (len) => {
+    const comments = {};
+    for (let i = 0; i < len; i++) {
+      const reusult = await db.collection('sessions').doc(`${id}/comments/${i}`).get();
+      comments[i] = reusult.exists ? reusult.data() : {};
+    }
+    setCommentList(comments);
+  };
+
   const fetchEssays = async () => {
     const result = await db.collection('sessions').doc(id).get();
     if (!result.exists) return;
@@ -42,6 +52,7 @@ const ShareboardOngoing = () => {
     setEssayList(data.essays);
     setUserList([data.host, ...data.participants]);
     updateAuthority(data.host, data.participants);
+    fetchComments(data.essays.length);
   };
   useEffect(() => {
     fetchEssays();
@@ -95,7 +106,12 @@ const ShareboardOngoing = () => {
           </List>
         </Grid>
         <Grid direction='column' xs={7}>
-          <ShareboardEssay info={essayList[selectedIndex]} />
+          <ShareboardEssay
+            info={essayList[selectedIndex]}
+            comments={commnetList[selectedIndex]}
+            idx={selectedIndex}
+            authorized={authorized}
+          />
         </Grid>
       </Grid>
     </Grid>
@@ -115,9 +131,8 @@ const useStyles = makeStyles({
     background: '#EBE7E4',
   },
   fontie: {
-
     fontFamily: font,
-  }
+  },
 });
 
 export default ShareboardOngoing;

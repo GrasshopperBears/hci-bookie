@@ -1,11 +1,17 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { Grid, Avatar } from '@material-ui/core';
-import { TextField, Typography, FormControl, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { TextField, FormControl, Button } from '@material-ui/core';
 
-const EnterComment = () => {
-
+const EnterComment = ({ idx, addComment }) => {
   const comment = useRef(undefined);
+
+  const createComment = async () => {
+    const { value: text } = comment.current;
+    if (!text.length) return;
+    const result = await addComment(idx, text);
+    if (result) comment.current.value = '';
+  };
 
   return (
     <TabWrap style={{ backgroundColor: '#ffffff' }}>
@@ -23,21 +29,24 @@ const EnterComment = () => {
           </FormControl>
         </Grid>
         <Grid item alignItems='center' spacing={1}>
-          <Button type='submit' variant='contained' color='primary' size='middle' style={{ float: 'center' }}>
+          <Button
+            onClick={createComment}
+            type='submit'
+            variant='contained'
+            color='primary'
+            size='middle'
+            style={{ float: 'center' }}
+          >
             Submit
           </Button>
         </Grid>
       </Grid>
     </TabWrap>
-    
   );
 };
 
 const TabWrap = styled.div`
   align-items: center;
-`;
-
-const CommentInput = styled.input`
 `;
 
 export default EnterComment;

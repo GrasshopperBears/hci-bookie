@@ -1,27 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import {Grid} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import EssayCommentList from './ShareboardEssayCommentList';
 import EnterComment from './EnterComment';
+import firebase from '../firebase-config';
+const db = firebase.firestore();
 
-const ShareboardEssay = ({ info }) => {
+const ShareboardEssay = ({ info, idx, comments, authorized }) => {
   const [essayInfo, setEssayInfo] = useState(undefined);
+  const [commentList, setCommentList] = useState(comments);
+  const { id } = useParams();
+
   useEffect(() => {
     if (info) setEssayInfo(info);
   }, [info]);
+  useEffect(() => {
+    setCommentList(comments);
+  }, [comments]);
 
-  const commentList = 
-  [
-    {'name': '이상현',
-     'comment': 'It is good!'
-    },
-    {'name': '황영주',
-     'comment': 'I like it'
-    },
-    {'name': '이진우',
-     'comment': 'I wish...'
-    }
-  ];
+  const addComment = async (idx, text) => {
+    const { uid, displayName, photoURL } = firebase.auth().currentUser;
+    const newCommentList = commentList
+      ? {
+          ...commentList,
+          [Object.keys(commentList).length]: { uid, displayName, photoURL, text },
+        }
+      : {
+          0: { uid, displayName, photoURL, text },
+        };
+    const { exists } = await db.collection('sessions').doc(`${id}/comments/${idx}`).get();
+    if (!exists) await db.collection('sessions').doc(`${id}/comments/${idx}`).set(newCommentList);
+    else await db.collection('sessions').doc(`${id}/comments/${idx}`).update(newCommentList);
+
+    setCommentList(newCommentList);
+    return true;
+  };
 
   return essayInfo ? (
     <Wrapper>
@@ -36,11 +50,11 @@ const ShareboardEssay = ({ info }) => {
         </Grid>
         <Grid direction='column'>
           <EssayCommentHead>Comments</EssayCommentHead>
-          <EssayCommentList commentList = {commentList}/>
-          <EnterComment></EnterComment>
+          {commentList && <EssayCommentList commentList={commentList} />}
+          <EnterComment idx={idx} addComment={addComment} />
+          {/* {authorized && <EnterComment />} */}
         </Grid>
       </Grid>
-      
     </Wrapper>
   ) : (
     <Wrapper />
@@ -111,7 +125,7 @@ const EssayCommentHead = styled.div`
   font-size: 25px;
   font-weight: 700;
   line-height: 30px;
-  text-align: left;   
+  text-align: left;
   margin-left: 20px;
   margin-top: 70px;
 `;
