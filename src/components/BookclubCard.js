@@ -21,9 +21,11 @@ const BookclubCard = ({ info, url }) => {
       <CardActionArea onClick={clickHandler} style={{ height: '100%', width: '100%' }}>
         <CardMedia image={bookInfo.thumbnail} title='Book cover' style={{ width: '100%', height: '55%' }} />
         <CardContentStyled>
-          <Title variant='h5' className={classes.cardTitle}>{title}</Title>
+          <Title variant='h5' className={classes.cardTitle}>
+            {title}
+          </Title>
           <Typography variant='body1' style={{ marginBottom: '15px' }}>
-            Date: {moment(dateTime).format('MMMM Do, H:mm')}
+            Date: {moment(dateTime).format('MMMM Do, H:mm')} ({moment().to(moment(dateTime), true)} left)
           </Typography>
           <SessionDescription variant='body2' color='textSecondary'>
             {content}
